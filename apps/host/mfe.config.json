@@ -1,9 +1,51 @@
 [
   {
-    "name": "fleet",
-    "path": "/fleet",
-    "entry": "http://localhost:5174/remoteEntry.js",
-    "module": "./FleetMfe",
-    "label": "Fleet"
+    "name": "operations",
+    "label": "Operations",
+    "icon": "FolderOpen",
+    "entry": "",
+    "module": "",
+    "submenu": [
+      {
+        "name": "fleet",
+        "path": "/fleet",
+        "entry": "http://localhost:5174/remoteEntry.js",
+        "module": "./FleetMfe",
+        "label": "Fleet",
+        "icon": "Car"
+      },
+      {
+        "name": "maintenance",
+        "path": "/maintenance",
+        "entry": "http://localhost:5176/remoteEntry.js",
+        "module": "./MaintenanceMfe",
+        "label": "Maintenance",
+        "icon": "Wrench"
+      }
+    ]
+  },
+  {
+    "name": "rentals",
+    "path": "/rentals",
+    "entry": "http://localhost:5175/remoteEntry.js",
+    "module": "./RentalsMfe",
+    "label": "Rentals",
+    "icon": "CalendarDays"
+  },
+  {
+    "name": "docs",
+    "label": "Documentation",
+    "icon": "ExternalLink",
+    "externalUrl": "https://docs.example.com",
+    "entry": "",
+    "module": ""
+  },
+  {
+    "name": "broken",
+    "path": "/broken",
+    "entry": "http://localhost:9999/remoteEntry.js",
+    "module": "./BrokenMfe",
+    "label": "Broken",
+    "icon": "AlertTriangle"
   }
 ]

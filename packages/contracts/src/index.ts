@@ -1,12 +1,11 @@
 /**
  * @-label-/contracts
  * Shared types for the MFE architecture.
- * Types will be added as the project evolves.
  */
 
 export interface MfeConfigEntry {
   name: string;
-  path: string;
+  path?: string;
   entry: string;
   module: string;
   label?: string;
@@ -20,11 +19,20 @@ export interface MfeConfigEntry {
 export interface MfeChildRoute {
   path: string;
   module: string;
-  tab?: string;
+  tab?: {
+    label: string;
+    icon?: string;
+  };
 }
 
 export interface MfePanelConfig {
-  id: string;
+  panelId: string;
   module: string;
+  title: string;
   size?: 'sm' | 'md' | 'lg';
+}
+
+export interface RemoteDefinition {
+  remoteName: string;
+  moduleName: string;
 }

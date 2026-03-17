@@ -5,33 +5,31 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { generateShared } from '@-label-/federation-config';
-import { mfeConfigApiPlugin } from '@-label-/vite-plugin-mfe-config-api';
 
 const __cwd = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  resolve: {
-    conditions: ['style'],
-  },
   plugins: [
     tailwindcss(),
     react(),
-    mfeConfigApiPlugin(),
     federation({
-      name: 'host',
-      remotes: {},
+      name: 'maintenance',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './MaintenanceMfe': './src/MaintenanceMfe/MaintenanceMfe.tsx',
+      },
       shared: generateShared({
         cwd: __cwd,
-        ignore: ['@-label-/mfe-loader', '@-label-/ui-internal-core', '@module-federation/runtime', '@module-federation/vite'],
+        ignore: ['@-label-/mfe-loader', '@module-federation/runtime', '@module-federation/vite'],
       }),
     }),
   ],
   server: {
-    port: 4173,
-    origin: 'http://localhost:4173',
+    port: 4176,
+    origin: 'http://localhost:4176',
   },
   preview: {
-    port: 5173,
+    port: 5176,
     cors: true,
   },
   build: {

@@ -1,1 +1,4 @@
-@import 'tailwindcss';
+@import '@-label-/ui-internal-core/globals.css';
+
+@source ".";
+@source "../node_modules/@-label-/ui-internal-core/src";
