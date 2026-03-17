@@ -35,6 +35,7 @@ Não é aceitável que o user tenha de perguntar "a documentação está atualiz
 
 ## Skills recomendadas por contexto
 
+- Sempre que iniciar um novo TODO é importante carregar contexto do react `/c_react`
 - Ao iniciar repositório usar `/c_react` apenas para dar contexto ee depois  `/r_init-repo`
 - Ao criar/modificar package.json → usar `/r_package-json` para validação
 - Ao terminar um TODO executar `/r_pipeline-react`
