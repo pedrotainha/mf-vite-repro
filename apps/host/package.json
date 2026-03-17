@@ -34,7 +34,9 @@
   "devDependencies": {
     "@-label-/federation-config": "workspace:*",
     "@-label-/lint-config": "latest",
+    "@-label-/vite-plugin-mf-tla-fix": "workspace:*",
     "@-label-/vite-plugin-mfe-config-api": "workspace:*",
+    "@axe-core/playwright": "^4.11.1",
     "@module-federation/vite": "1.13.0",
     "@tailwindcss/vite": "4.2.1",
     "@types/react": "19.1.8",

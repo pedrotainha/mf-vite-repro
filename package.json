@@ -54,13 +54,14 @@
     "@-label-/changeset-publish-fix": "latest",
     "@-label-/commit-lint": "latest",
     "@-label-/lint-config": "latest",
+    "@axe-core/playwright": "^4.11.1",
     "@changesets/cli": "2.30.0",
+    "@playwright/test": "1.58.2",
     "eslint": "9.39.2",
     "lint-staged": "16.3.3",
     "oxlint": "1.54.0",
     "prettier": "3.8.1",
     "simple-git-hooks": "2.13.1",
-    "@playwright/test": "1.58.2",
     "typescript": "5.9.3"
   },
   "pnpm": {

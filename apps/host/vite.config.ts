@@ -5,6 +5,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { generateShared } from '@-label-/federation-config';
+import { mfTlaFixPlugin } from '@-label-/vite-plugin-mf-tla-fix';
 import { mfeConfigApiPlugin } from '@-label-/vite-plugin-mfe-config-api';
 
 const __cwd = dirname(fileURLToPath(import.meta.url));
@@ -17,6 +18,7 @@ export default defineConfig({
     tailwindcss(),
     react(),
     mfeConfigApiPlugin(),
+    mfTlaFixPlugin(),
     federation({
       name: 'host',
       remotes: {},
