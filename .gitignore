@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+
+# Coverage
+coverage/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cache
+.eslintcache
+*.tsbuildinfo
+
+# Test
+test-results/
+playwright-report/
+.playwright/
+
+# Changeset
+.changeset/*.md
+!.changeset/config.json
+
+# MSW
+**/mockServiceWorker.js

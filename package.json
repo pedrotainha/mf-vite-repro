@@ -1,0 +1,57 @@
+{
+  "name": "poc-mfe-csr-mf",
+  "version": "0.0.1",
+  "private": true,
+  "description": "POC Micro-Frontend CSR with @module-federation/vite",
+  "type": "module",
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.12.1",
+  "scripts": {
+    "prepare": "simple-git-hooks",
+    "preinstall": "npx only-allow pnpm",
+    "build:all": "echo 'TODO: build all apps'",
+    "dev": "echo 'TODO: dev all apps'",
+    "serve": "echo 'TODO: build + preview + watch'",
+    "typecheck": "pnpm -r run typecheck",
+    "lint": "pnpm run '/^(eslint|oxlint)$/'",
+    "eslint": "eslint --cache --no-warn-ignored --max-warnings 0",
+    "eslint:staged": "eslint --cache --no-warn-ignored --max-warnings 0",
+    "oxlint": "oxlint --config .oxlintrc.json",
+    "oxlint:staged": "oxlint --config .oxlintrc.json",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write --cache .",
+    "changeset": "changeset",
+    "changeset:status": "changeset status",
+    "version:packages": "changeset version",
+    "publish:packages": "changeset-publish-fix",
+    "generate:clients": "echo 'TODO: orval generate'"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged",
+    "commit-msg": "npx commit-lint $1"
+  },
+  "devDependencies": {
+    "@-label-/changeset-publish-fix": "latest",
+    "@-label-/commit-lint": "latest",
+    "@-label-/lint-config": "latest",
+    "@changesets/cli": "2.30.0",
+    "eslint": "9.39.2",
+    "lint-staged": "16.3.3",
+    "oxlint": "1.54.0",
+    "prettier": "3.8.1",
+    "simple-git-hooks": "2.13.1",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@-label-/changeset-publish-fix",
+      "@-label-/commit-lint",
+      "@-label-/lint-config",
+      "esbuild",
+      "simple-git-hooks"
+    ]
+  }
+}

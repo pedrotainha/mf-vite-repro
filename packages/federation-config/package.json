@@ -1,0 +1,33 @@
+{
+  "name": "@-label-/federation-config",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@-label-/lint-config": "latest",
+    "eslint": "9.39.2",
+    "oxlint": "1.54.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "pnpm run '/^(eslint|oxlint)$/'",
+    "eslint:base": "eslint --cache --no-warn-ignored --max-warnings 0",
+    "eslint": "pnpm run eslint:base src",
+    "eslint:staged": "pnpm run eslint:base",
+    "oxlint:base": "oxlint --config .oxlintrc.json",
+    "oxlint": "pnpm run oxlint:base src",
+    "oxlint:staged": "pnpm run oxlint:base",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write --cache ."
+  }
+}

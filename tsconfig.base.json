@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "resolveJsonModule": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "exactOptionalPropertyTypes": false,
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@-label-/contracts": ["./packages/contracts/src/index.ts"],
+      "@-label-/federation-config": ["./packages/federation-config/src/index.ts"],
+      "@-label-/utils": ["./packages/utils/src/index.ts"],
+      "@-label-/mfe-loader": ["./packages/mfe-loader/src/index.ts"],
+      "@-label-/msw-mocks": ["./packages/msw-mocks/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

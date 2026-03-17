@@ -1,0 +1,8 @@
+{
+  "extends": ["./node_modules/@-label-/lint-config/.oxlintrc.json"],
+  "ignorePatterns": ["packages/", "apps/", "clients/", "coverage/", "dist/"],
+  "rules": {
+    "unicorn/numeric-separators-style": "off",
+    "unicorn/prefer-global-this": "off"
+  }
+}
