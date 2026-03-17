@@ -35,6 +35,13 @@ Ficheiros de contexto disponíveis em `../POC_MFE_csr/docs/`:
 - `ANALYSIS_DEV_PATTERNS.md` — dev patterns a replicar (lint, prettier, hooks, changesets)
 - `MIGRATION_PLAN_MF_VITE.md` — plano com 17 TODOs + tabela de rastreabilidade
 
+## Gotchas (descobertos no TODO-01)
+
+- **@-label-/lint-config exports:** usar `fullReactConfigs` para apps React, `defaultConfigs` para packages sem React. NÃO existe `fullConfigs`.
+- **Arrow functions obrigatórias:** lint rule `prefer-arrow-functions` — usar sempre `export const foo = () => ...`, nunca `export function foo() { ... }`.
+- **tsconfig.json obrigatório na root:** lint-config precisa de `tsconfig.json` (não apenas `tsconfig.base.json`) para import resolution.
+- **Markdown code blocks:** todos os fenced blocks precisam de language specifier (```text, ```bash, etc.), nunca bare ```.
+
 ## Versionamento & Publish
 
 Segue o workflow de changesets. Comando de publish: `pnpm publish:packages`.
