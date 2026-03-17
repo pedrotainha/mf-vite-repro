@@ -1,0 +1,8 @@
+dist
+coverage
+pnpm-lock.yaml
+node_modules
+*.md
+*.css
+**/__mf__temp
+**/.__mf__temp

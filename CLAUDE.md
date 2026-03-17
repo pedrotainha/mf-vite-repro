@@ -18,6 +18,21 @@
 
 - Nunca apagues commits, nem este repositório. Histórico do código deve ser sempre mantido caso te desvies do objetivo.
 
+## Checklist de fecho de TODO (OBRIGATÓRIO)
+
+Antes de declarar qualquer TODO como completo, o agente DEVE executar automaticamente estes passos (sem o user pedir):
+
+1. **Gotchas** — gravar no CLAUDE.md (secção Gotchas do TODO-XX) qualquer gotcha descoberto
+2. **ADRs** — criar/atualizar os ADRs previstos no TODO (ver MIGRATION_PLAN_MF_VITE.md)
+3. **FEATURES.md** — actualizar com as features implementadas neste TODO
+4. **ARCHITECTURE.md** — actualizar se houve mudanças arquitecturais
+5. **README.md** — actualizar se stack/scripts/estrutura mudou
+6. **Commit documentação** — commitar tudo junto ou em commit separado de docs
+7. **Resumo final** — informar o user: o que foi feito, gotchas, o que falta para o próximo TODO
+8. **Skills** — correr skills relevantes se aplicável (ex: `/r_pipeline-react` após mudar scripts)
+
+Não é aceitável que o user tenha de perguntar "a documentação está atualizada?" — isso deve ser automático.
+
 ## Skills recomendadas por contexto
 
 - Ao criar/modificar package.json → usar `/r_package-json` para validação

@@ -15,7 +15,7 @@
     "oxlint:base": "oxlint --config .oxlintrc.json",
     "oxlint": "pnpm run oxlint:base src",
     "oxlint:staged": "pnpm run oxlint:base",
-    "prettier:check": "prettier --check .",
+    "prettier:check": "prettier --check",
     "prettier:write": "prettier --write --cache ."
   },
   "dependencies": {
