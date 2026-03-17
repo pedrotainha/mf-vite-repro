@@ -6,7 +6,7 @@ POC de Micro-Frontends CSR usando `@module-federation/vite` + Federation Runtime
 
 | Layer | Technology |
 |-------|-----------|
-| Build | Vite 7 + @module-federation/vite |
+| Build | Vite 8 + @module-federation/vite |
 | Framework | React 19 + TypeScript strict |
 | Styling | Tailwind CSS v4 + shadcn v3 |
 | State | Zustand (shell) + TanStack React Query (server) |

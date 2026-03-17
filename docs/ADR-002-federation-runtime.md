@@ -29,4 +29,4 @@ Estes wrappers estao encapsulados em `@-label-/mfe-loader`:
 - **Type-safe** — API publica com tipos TS, ao contrario dos metodos internos `__federation_*`
 - **ESM nativo** — `type: 'module'` obrigatorio no registo de remotes, alinhado com Vite 8 ESM-first
 - **Cache de componentes** — `lazyRemoteComponent()` previne duplicate fetches via Map cache
-- **Workspace packages excluidos do shared** — packages com `workspace:*` nao sao partilhados via federation (sao bundled), evitando conflitos com o wrapper virtual do plugin
+- **Workspace packages partilhados** — packages `workspace:*` sao partilhados normalmente via federation. Apenas `@-label-/mfe-loader` (que wrappa `@module-federation/runtime`) e a propria infraestrutura de federation (`@module-federation/runtime`, `@module-federation/vite`) devem estar no `ignore` do `generateShared`

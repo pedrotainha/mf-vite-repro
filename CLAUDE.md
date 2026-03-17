@@ -42,6 +42,15 @@ Ficheiros de contexto disponíveis em `../POC_MFE_csr/docs/`:
 - **tsconfig.json obrigatório na root:** lint-config precisa de `tsconfig.json` (não apenas `tsconfig.base.json`) para import resolution.
 - **Markdown code blocks:** todos os fenced blocks precisam de language specifier (```text, ```bash, etc.), nunca bare ```.
 
+## Gotchas (descobertos no TODO-02)
+
+- **@types/* no shared:** packages `@types/*` devem ser filtrados do `generateShared` — são type-only e o rolldown não consegue resolver os exports sob condições browser/module.
+- **Federation infrastructure no ignore:** `@module-federation/runtime` e `@module-federation/vite` devem estar no `ignore` do `generateShared` — são infraestrutura de federation e não podem ser tratados como shared deps (causa conflitos de inicialização).
+- **@-label-/mfe-loader no ignore:** este pacote wrappa `@module-federation/runtime` — se for shared, o plugin cria um wrapper virtual `loadShare` que perde os exports.
+- **@module-federation/dts-plugin __dirname bug:** o plugin DTS tem um bug com `__dirname` em ESM — é non-blocking (warning apenas, build funciona).
+- **@tailwindcss/vite peerDeps:** versão 4.2.1 não lista Vite 8 nos peerDeps — apenas warning, funciona normalmente.
+- **`.__mf__temp` directories:** gerados pelo plugin MF no build, devem estar no `.gitignore` e `.prettierignore`.
+
 ## Versionamento & Publish
 
 Segue o workflow de changesets. Comando de publish: `pnpm publish:packages`.
