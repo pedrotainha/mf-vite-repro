@@ -1,10 +1,13 @@
 import { federation } from '@module-federation/vite';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'node:path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { generateShared } from '@-label-/federation-config';
 import { mfeConfigApiPlugin } from '@-label-/vite-plugin-mfe-config-api';
+
+const __cwd = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
@@ -15,7 +18,8 @@ export default defineConfig({
       name: 'host',
       remotes: {},
       shared: generateShared({
-        packageJsonPath: resolve(__dirname, 'package.json'),
+        cwd: __cwd,
+        ignore: ['@-label-/mfe-loader', '@module-federation/runtime', '@module-federation/vite'],
       }),
     }),
   ],
