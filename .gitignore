@@ -25,6 +25,9 @@ Thumbs.db
 .eslintcache
 *.tsbuildinfo
 
+# Module Federation temp
+**/__mf__temp/
+
 # Test
 test-results/
 playwright-report/

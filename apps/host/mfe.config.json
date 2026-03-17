@@ -1,0 +1,9 @@
+[
+  {
+    "name": "fleet",
+    "path": "/fleet",
+    "entry": "http://localhost:5174/remoteEntry.js",
+    "module": "./FleetMfe",
+    "label": "Fleet"
+  }
+]

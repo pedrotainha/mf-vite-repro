@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": [],
+  "include": ["e2e", "playwright.config.ts", "*.config.ts"],
   "references": []
 }

@@ -12,9 +12,13 @@
   "scripts": {
     "prepare": "simple-git-hooks",
     "preinstall": "npx only-allow pnpm",
-    "build:all": "echo 'TODO: build all apps'",
-    "dev": "echo 'TODO: dev all apps'",
-    "serve": "echo 'TODO: build + preview + watch'",
+    "build:fleet": "pnpm --filter @-label-/fleet build",
+    "build:host": "pnpm --filter @-label-/host build",
+    "build:all": "pnpm run build:fleet && pnpm run build:host",
+    "preview:fleet": "pnpm --filter @-label-/fleet preview",
+    "preview:host": "pnpm --filter @-label-/host preview",
+    "dev": "pnpm -r --parallel run dev",
+    "serve": "pnpm run build:all && pnpm -r --parallel run preview",
     "typecheck": "pnpm -r run typecheck",
     "lint": "pnpm run '/^(eslint|oxlint)$/'",
     "eslint": "eslint --cache --no-warn-ignored --max-warnings 0",
@@ -27,7 +31,8 @@
     "changeset:status": "changeset status",
     "version:packages": "changeset version",
     "publish:packages": "changeset-publish-fix",
-    "generate:clients": "echo 'TODO: orval generate'"
+    "generate:clients": "echo 'TODO: orval generate'",
+    "test:e2e": "playwright test"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
@@ -43,6 +48,7 @@
     "oxlint": "1.54.0",
     "prettier": "3.8.1",
     "simple-git-hooks": "2.13.1",
+    "@playwright/test": "1.58.2",
     "typescript": "5.9.3"
   },
   "pnpm": {

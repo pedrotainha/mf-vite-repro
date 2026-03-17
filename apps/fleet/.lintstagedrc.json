@@ -1,0 +1,3 @@
+{
+  "*.{ts,tsx}": ["pnpm run eslint:staged", "pnpm run oxlint:staged", "prettier --write --cache"]
+}

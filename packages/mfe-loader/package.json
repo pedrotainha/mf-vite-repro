@@ -1,5 +1,5 @@
 {
-  "name": "@-label-/federation-config",
+  "name": "@-label-/mfe-loader",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -12,10 +12,13 @@
     }
   },
   "dependencies": {
-    "@module-federation/vite": "1.13.0"
+    "@-label-/contracts": "workspace:*",
+    "@module-federation/runtime": "2.2.2",
+    "react": "19.2.4"
   },
   "devDependencies": {
     "@-label-/lint-config": "latest",
+    "@types/react": "19.1.8",
     "eslint": "9.39.2",
     "oxlint": "1.54.0",
     "prettier": "3.8.1",

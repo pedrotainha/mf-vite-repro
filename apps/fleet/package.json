@@ -1,0 +1,42 @@
+{
+  "name": "@-label-/fleet",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "pnpm run '/^(eslint|oxlint)$/'",
+    "eslint:base": "eslint --cache --no-warn-ignored --max-warnings 0",
+    "eslint": "pnpm run eslint:base src",
+    "eslint:staged": "pnpm run eslint:base",
+    "oxlint:base": "oxlint --config .oxlintrc.json",
+    "oxlint": "pnpm run oxlint:base src",
+    "oxlint:staged": "pnpm run oxlint:base",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write --cache ."
+  },
+  "dependencies": {
+    "@module-federation/runtime": "2.2.2",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zustand": "5.0.12"
+  },
+  "devDependencies": {
+    "@-label-/federation-config": "workspace:*",
+    "@-label-/lint-config": "latest",
+    "@module-federation/vite": "1.13.0",
+    "@tailwindcss/vite": "4.2.1",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@vitejs/plugin-react": "6.0.1",
+    "eslint": "9.39.2",
+    "oxlint": "1.54.0",
+    "prettier": "3.8.1",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "vite": "8.0.0"
+  }
+}
