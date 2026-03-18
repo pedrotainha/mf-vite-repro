@@ -1,56 +1,33 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 
-test.describe('Module Federation — Host + Fleet', () => {
-  test('host loads and displays the app', async ({ page }) => {
+test.describe('Module Federation — Host + Remotes', () => {
+  test('host loads with sidebar and header', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByTestId('host-app')).toBeVisible();
-    await expect(page.getByText('Host Application')).toBeVisible();
+    await expect(page.getByTestId('app-sidebar')).toBeVisible();
+    await expect(page.getByTestId('app-header')).toBeVisible();
+    await expect(page.getByTestId('home-page')).toBeVisible();
   });
 
-  test('fleet MFE loads via federation', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.getByTestId('fleet-mfe')).toBeVisible({ timeout: 10_000 });
-    await expect(page.getByText('Hello from Fleet')).toBeVisible();
-  });
-
-  test('browser console has no errors', async ({ page }) => {
-    const errors: string[] = [];
-    page.on('console', message => {
-      if (message.type() === 'error') {
-        errors.push(message.text());
-      }
-    });
-
-    await page.goto('/');
-    await expect(page.getByTestId('fleet-mfe')).toBeVisible({ timeout: 10_000 });
-
-    // Filter out known non-critical errors (e.g., favicon 404)
-    const criticalErrors = errors.filter(error => !error.includes('favicon') && !error.includes('404'));
-    expect(criticalErrors).toEqual([]);
-  });
-
-  test('/api/mfes endpoint returns fleet config', async ({ page }) => {
+  test('/api/mfes endpoint returns config with all remotes', async ({ page }) => {
     const response = await page.request.get('/api/mfes');
     expect(response.ok()).toBe(true);
 
     const config = await response.json();
-    expect(config).toEqual(
+    // Fleet and maintenance are inside operations submenu
+    const flat = config.flatMap((entry: { submenu?: unknown[] }) => [entry, ...(entry.submenu ?? [])]);
+    expect(flat).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({
-          name: 'fleet',
-          module: './FleetMfe',
-        }),
+        expect.objectContaining({ name: 'fleet' }),
+        expect.objectContaining({ name: 'rentals' }),
+        expect.objectContaining({ name: 'maintenance' }),
       ]),
     );
   });
 
-  test('shared React is singleton (no duplicate instances)', async ({ page }) => {
-    await page.goto('/');
+  test('shared React is singleton (remotes render with hooks)', async ({ page }) => {
+    await page.goto('/fleet');
     await expect(page.getByTestId('fleet-mfe')).toBeVisible({ timeout: 10_000 });
-
-    // If React were duplicated, hooks would fail and the component wouldn't render.
-    // The fact that fleet-mfe renders with hooks proves React is shared as singleton.
-    const fleetContent = await page.getByTestId('fleet-mfe').textContent();
-    expect(fleetContent).toContain('Hello from Fleet');
+    const content = await page.getByTestId('fleet-mfe').textContent();
+    expect(content).toContain('Fleet');
   });
 });

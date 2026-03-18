@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 
 test.describe('Error Handling', () => {
   test('invalid route shows 404 page', async ({ page }) => {
@@ -21,20 +21,5 @@ test.describe('Error Handling', () => {
     await page.goto('/broken');
     await expect(page.getByTestId('mfe-error-boundary')).toBeVisible({ timeout: 15_000 });
     await expect(page.getByText('Failed to load')).toBeVisible();
-  });
-
-  test('browser console has no critical errors on home', async ({ page }) => {
-    const errors: string[] = [];
-    page.on('console', message => {
-      if (message.type() === 'error') {
-        errors.push(message.text());
-      }
-    });
-
-    await page.goto('/');
-    await expect(page.getByTestId('home-page')).toBeVisible();
-
-    const criticalErrors = errors.filter(error => !error.includes('favicon') && !error.includes('404') && !error.includes('net::ERR'));
-    expect(criticalErrors).toEqual([]);
   });
 });

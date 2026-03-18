@@ -68,6 +68,18 @@ Ficheiros de contexto disponíveis em `../POC_MFE_csr/docs/`:
 - **@tailwindcss/vite peerDeps:** versão 4.2.1 não lista Vite 8 nos peerDeps — apenas warning, funciona normalmente.
 - **`.__mf__temp` directories:** gerados pelo plugin MF no build, devem estar no `.gitignore` e `.prettierignore`.
 
+## E2E: Shared Console Error Fixture
+
+Todos os testes e2e DEVEM importar `test` e `expect` de `./fixtures` em vez de `@playwright/test`:
+
+```typescript
+import { expect, test } from './fixtures';
+```
+
+O fixture `consoleErrors` é `auto: true` — corre automaticamente no fim de cada teste e valida que não existem erros críticos na consola do browser. Os filtros actuais estão documentados em `docs/TODO_CONSOLE_ERRORS.md` — o objetivo é resolver cada root cause e remover o filtro.
+
+Nunca adicionar novos filtros sem documentar no TODO e sem justificação clara.
+
 ## Versionamento & Publish
 
 Segue o workflow de changesets. Comando de publish: `pnpm publish:packages`.
