@@ -9,7 +9,7 @@
       {
         "name": "fleet",
         "path": "/fleet",
-        "entry": "http://localhost:5174/remoteEntry.js",
+        "entry": "http://localhost:4174/remoteEntry.js",
         "module": "./FleetMfe",
         "label": "Fleet",
         "icon": "Car"
@@ -17,7 +17,7 @@
       {
         "name": "maintenance",
         "path": "/maintenance",
-        "entry": "http://localhost:5176/remoteEntry.js",
+        "entry": "http://localhost:4176/remoteEntry.js",
         "module": "./MaintenanceMfe",
         "label": "Maintenance",
         "icon": "Wrench"
@@ -27,7 +27,7 @@
   {
     "name": "rentals",
     "path": "/rentals",
-    "entry": "http://localhost:5175/remoteEntry.js",
+    "entry": "http://localhost:4175/remoteEntry.js",
     "module": "./RentalsMfe",
     "label": "Rentals",
     "icon": "CalendarDays"
