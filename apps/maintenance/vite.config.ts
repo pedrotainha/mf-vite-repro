@@ -15,6 +15,7 @@ export default defineConfig({
     federation({
       name: 'maintenance',
       filename: 'remoteEntry.js',
+      hostInitInjectLocation: 'entry',
       exposes: {
         './MaintenanceMfe': './src/MaintenanceMfe/MaintenanceMfe.tsx',
       },

@@ -72,5 +72,6 @@
       "esbuild",
       "simple-git-hooks"
     ]
-  }
+  },
+  "dependencies": {}
 }

@@ -15,6 +15,7 @@ export default defineConfig({
     federation({
       name: 'fleet',
       filename: 'remoteEntry.js',
+      hostInitInjectLocation: 'entry',
       exposes: {
         './FleetMfe': './src/FleetMfe/FleetMfe.tsx',
       },

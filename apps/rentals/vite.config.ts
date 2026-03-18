@@ -15,6 +15,7 @@ export default defineConfig({
     federation({
       name: 'rentals',
       filename: 'remoteEntry.js',
+      hostInitInjectLocation: 'entry',
       exposes: {
         './RentalsMfe': './src/RentalsMfe/RentalsMfe.tsx',
       },
