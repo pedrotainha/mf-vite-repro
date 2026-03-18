@@ -51,14 +51,72 @@ interface MfeConfigEntry {
 }
 ```
 
+## Shell (Host Layout)
+
+### Layout Structure
+
+```text
+SidebarProvider
+├── AppSidebar (collapsible, icon-only when collapsed)
+│   ├── SidebarBrand — logo + app title
+│   └── SidebarNavigation — dynamic menu from mfe.config.json
+│       ├── RegularLinkItem (React Router NavLink)
+│       ├── SubmenuItem (Collapsible group with children)
+│       └── ExternalLinkItem (target="_blank")
+└── SidebarInset (<div>, patched from shadcn <main>)
+    ├── Header — SidebarTrigger + Separator + PageBreadcrumb
+    └── <main> — React Router <Outlet />
+```
+
+### Sidebar
+
+Gerada dinamicamente a partir de `mfe.config.json`. Cada `MfeConfigEntry` pode ser:
+
+- **Link directo** — navega via React Router (`path` presente, sem `submenu`)
+- **Submenu** — grupo colapsável com `submenu: MfeConfigEntry[]`
+- **Link externo** — `external: true`, abre em nova janela
+
+Ícones mapeados de `lucide-react` via string name no config (ex: `"icon": "car"` → `<Car />`).
+
+### Breadcrumbs
+
+Gerados automaticamente a partir de `useLocation().pathname`. Cada segmento do URL é capitalizado e linkável. A home page mostra apenas "Home".
+
+### Error Handling
+
+- **`MfeErrorBoundary`** — class component React que envolve cada `<RemoteSlot>`. Captura erros de carregamento/rendering de remotes e mostra fallback com `Alert` UI.
+- **404 page** — rota catch-all (`*`) renderiza `NotFound` com link para home.
+- **Console error fixture** — `e2e/fixtures.ts` com auto-use fixture que valida ausência de erros críticos na consola do browser em cada teste.
+
+### CSS Architecture
+
+- **Host:** importa `@-label-/ui-internal-core/globals.css` (tokens + reset) + `@source` para scan de componentes partilhados
+- **Remotes:** importam `tailwindcss` — herdam globals do host quando carregados via MF
+- **Zero CSS-in-JS** — tudo resolvido em build time via Tailwind v4 utility classes
+- Detalhes em [ADR-004](adr/ADR-004-css-architecture-module-federation.md)
+
+### File Organization
+
+Convenção **folder + explicit name** sem barrel exports:
+
+```text
+src/
+  Layout/Layout.tsx
+  pages/Home/Home.tsx
+  pages/NotFound/NotFound.tsx
+  MfeErrorBoundary/MfeErrorBoundary.tsx
+```
+
+Detalhes em [ADR-005](adr/ADR-005-file-organization-convention.md)
+
 ## Apps
 
 | App | Role | Dev Port | Preview Port | Status |
 |-----|------|----------|-------------|--------|
-| host | Shell/consumer | 4173 | 5173 | TODO-02 |
-| fleet | Remote | 4174 | 5174 | TODO-02 (stub) |
-| rentals | Remote | 4175 | 5175 | Planned (TODO-06) |
-| maintenance | Remote | 4176 | 5176 | Planned (TODO-07) |
+| host | Shell/consumer | 4173 | 5173 | TODO-03 |
+| fleet | Remote | 4174 | 5174 | TODO-03 (stub) |
+| rentals | Remote | 4175 | 5175 | TODO-03 (stub) |
+| maintenance | Remote | 4176 | 5176 | TODO-03 (stub) |
 | reports | Remote | 4177 | 5177 | Planned (TODO-12) |
 | inventory | Remote | 4178 | 5178 | Planned (TODO-13) |
 
@@ -75,7 +133,12 @@ interface MfeConfigEntry {
 ## Testing
 
 - **Framework:** Playwright (headless Chromium)
-- **E2E:** `e2e/federation.spec.ts` — 5 testes (host load, MFE load, console errors, /api/mfes, React singleton)
+- **Fixture partilhado:** `e2e/fixtures.ts` — auto-use `consoleErrors` fixture que valida ausência de erros críticos na consola do browser
+- **E2E specs:**
+  - `federation.spec.ts` — 3 testes (host load, /api/mfes, React singleton)
+  - `shell-navigation.spec.ts` — 6 testes (sidebar items, SPA nav fleet/rentals/maintenance, breadcrumbs)
+  - `error-handling.spec.ts` — 3 testes (404 page, 404→home, broken remote error boundary)
+  - `a11y.spec.ts` — 2 testes (home + fleet axe a11y check)
 - **Script:** `pnpm test:e2e`
 
 ## ADRs
@@ -85,3 +148,5 @@ interface MfeConfigEntry {
 | [001](adr/ADR-001-module-federation-vite-plugin.md) | Plugin choice | @module-federation/vite over @originjs |
 | [002](adr/ADR-002-federation-runtime.md) | Federation Runtime | init + registerRemotes + loadRemote |
 | [003](adr/ADR-003-endpoint-api-mfes.md) | /api/mfes endpoint | Single source of truth para remotes |
+| [004](adr/ADR-004-css-architecture-module-federation.md) | CSS Architecture | Tailwind v4 globals + @source por MFE |
+| [005](adr/ADR-005-file-organization-convention.md) | File Organization | Folder + explicit name, sem barrel exports |
