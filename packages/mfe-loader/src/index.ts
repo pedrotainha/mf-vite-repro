@@ -32,18 +32,22 @@ export const registerMfeRemotes = (configs: MfeConfigEntry[]) => {
  * Lazy load a remote component for use with React.Suspense.
  * Caches by remoteName::moduleName to prevent duplicate fetches.
  */
-const componentCache = new Map<string, React.LazyExoticComponent<ComponentType>>();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- cache stores heterogeneous component types
+const componentCache = new Map<string, React.LazyExoticComponent<ComponentType<any>>>();
 
-export const lazyRemoteComponent = (options: { remoteName: string; moduleName: string }): React.LazyExoticComponent<ComponentType> => {
+export const lazyRemoteComponent = <P = Record<string, never>>(options: {
+  remoteName: string;
+  moduleName: string;
+}): React.LazyExoticComponent<ComponentType<P>> => {
   const cacheKey = `${options.remoteName}::${options.moduleName}`;
 
   const cached = componentCache.get(cacheKey);
   if (cached) {
-    return cached;
+    return cached as React.LazyExoticComponent<ComponentType<P>>;
   }
 
   const LazyComponent = lazy(async () => {
-    const module = await loadRemote<{ default: ComponentType }>(`${options.remoteName}/${options.moduleName.replace('./', '')}`);
+    const module = await loadRemote<{ default: ComponentType<P> }>(`${options.remoteName}/${options.moduleName.replace('./', '')}`);
 
     if (!module) {
       throw new Error(`Failed to load remote module: ${options.remoteName}/${options.moduleName}`);

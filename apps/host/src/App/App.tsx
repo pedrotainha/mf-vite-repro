@@ -5,8 +5,9 @@ import Layout from '../Layout/Layout';
 import { MfeErrorBoundary } from '../MfeErrorBoundary/MfeErrorBoundary';
 import Home from '../pages/Home/Home';
 import NotFound from '../pages/NotFound/NotFound';
+import { ShellApiProvider, useShellApi } from '../shell/ShellApiProvider/ShellApiProvider';
 
-import type { MfeConfigEntry } from '@-label-/contracts';
+import type { MfeConfigEntry, ShellApi } from '@-label-/contracts';
 import { initFederation, lazyRemoteComponent, registerMfeRemotes } from '@-label-/mfe-loader';
 
 initFederation({ name: 'host' });
@@ -32,13 +33,17 @@ const flattenRoutableConfigs = (configs: MfeConfigEntry[]): MfeConfigEntry[] => 
  * Pre-created lazy component cache, keyed by "remoteName::moduleName".
  * Components are created once when routes are built, not during render.
  */
-const lazyComponentCache = new Map<string, React.LazyExoticComponent<React.ComponentType>>();
+interface MfeProps {
+  shellApi?: ShellApi;
+}
 
-const getOrCreateLazy = (remoteName: string, moduleName: string): React.LazyExoticComponent<React.ComponentType> => {
+const lazyComponentCache = new Map<string, React.LazyExoticComponent<React.ComponentType<MfeProps>>>();
+
+const getOrCreateLazy = (remoteName: string, moduleName: string): React.LazyExoticComponent<React.ComponentType<MfeProps>> => {
   const key = `${remoteName}::${moduleName}`;
   const cached = lazyComponentCache.get(key);
   if (cached) return cached;
-  const component = lazyRemoteComponent({ moduleName, remoteName });
+  const component = lazyRemoteComponent<MfeProps>({ moduleName, remoteName });
   lazyComponentCache.set(key, component);
   return component;
 };
@@ -47,14 +52,15 @@ const RemoteSlot = ({
   component,
   displayName,
 }: {
-  component: React.LazyExoticComponent<React.ComponentType>;
+  component: React.LazyExoticComponent<React.ComponentType<MfeProps>>;
   displayName: string;
 }): JSX.Element => {
+  const shellApi = useShellApi();
   const Component = component;
   return (
     <MfeErrorBoundary name={displayName}>
       <Suspense fallback={<p className="text-sm text-muted-foreground">Loading {displayName}...</p>}>
-        <Component />
+        <Component shellApi={shellApi} />
       </Suspense>
     </MfeErrorBoundary>
   );
@@ -106,23 +112,25 @@ const App = (): JSX.Element => {
   const routableConfigs = flattenRoutableConfigs(mfes);
 
   return (
-    <Routes>
-      <Route element={<Layout mfes={mfes} />}>
-        <Route element={<Home />} index />
-        {routableConfigs.map(config => {
-          const hasChildren = config.children && config.children.length > 0;
-          const Lazy = getOrCreateLazy(config.name, config.module);
-          const name = config.label ?? config.name.charAt(0).toUpperCase() + config.name.slice(1);
-          return (
-            <Route key={config.path} path={config.path ? config.path.slice(1) + '/*' : undefined}>
-              <Route element={<RemoteSlot component={Lazy} displayName={name} />} index />
-              {hasChildren ? buildChildRoutes(config) : null}
-            </Route>
-          );
-        })}
-        <Route element={<NotFound />} path="*" />
-      </Route>
-    </Routes>
+    <ShellApiProvider>
+      <Routes>
+        <Route element={<Layout mfes={mfes} />}>
+          <Route element={<Home />} index />
+          {routableConfigs.map(config => {
+            const hasChildren = config.children && config.children.length > 0;
+            const Lazy = getOrCreateLazy(config.name, config.module);
+            const name = config.label ?? config.name.charAt(0).toUpperCase() + config.name.slice(1);
+            return (
+              <Route key={config.path} path={config.path ? config.path.slice(1) + '/*' : undefined}>
+                <Route element={<RemoteSlot component={Lazy} displayName={name} />} index />
+                {hasChildren ? buildChildRoutes(config) : null}
+              </Route>
+            );
+          })}
+          <Route element={<NotFound />} path="*" />
+        </Route>
+      </Routes>
+    </ShellApiProvider>
   );
 };
 

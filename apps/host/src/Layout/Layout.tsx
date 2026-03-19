@@ -14,6 +14,8 @@ import {
   Wrench,
 } from 'lucide-react';
 
+import { RightBar } from '../shell/RightBar/RightBar';
+
 import type { MfeConfigEntry } from '@-label-/contracts';
 import {
   Breadcrumb,
@@ -238,6 +240,7 @@ const Layout = ({ mfes }: { mfes: MfeConfigEntry[] }): JSX.Element => {
           <Outlet />
         </main>
       </SidebarInset>
+      <RightBar configs={mfes} />
     </SidebarProvider>
   );
 };

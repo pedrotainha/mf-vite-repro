@@ -3,6 +3,11 @@
  * Shared types for the MFE architecture.
  */
 
+export type { RentalStatus, VehicleRef, VehicleStatus, VehicleType, WorkOrderStatus, WorkOrderType } from './domain.types';
+export type { RightBarRequest, RightBarStackItem, RightBarState, SelectionsState, ShellApi } from './shell-api.types';
+
+// ── MFE Config types ─────────────────────────────────────────
+
 export interface MfeConfigEntry {
   name: string;
   path?: string;

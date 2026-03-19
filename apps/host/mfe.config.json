@@ -12,7 +12,15 @@
         "entry": "http://localhost:4174/remoteEntry.js",
         "module": "./FleetMfe",
         "label": "Fleet",
-        "icon": "Car"
+        "icon": "Car",
+        "panels": [
+          {
+            "panelId": "vehicle.quickView",
+            "module": "./VehicleQuickView",
+            "title": "Vehicle Quick View",
+            "size": "md"
+          }
+        ]
       },
       {
         "name": "maintenance",

@@ -1,4 +1,10 @@
-const FleetMfe = () => {
+import type { ShellApi } from '@-label-/contracts';
+
+interface Props {
+  shellApi?: ShellApi;
+}
+
+const FleetMfe = ({ shellApi: _shellApi }: Props) => {
   return (
     <div data-testid="fleet-mfe">
       <h1>Hello from Fleet</h1>
