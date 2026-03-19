@@ -34,3 +34,20 @@ Decisões técnicas, arquitectura e patterns implementados neste POC.
 - **ADR-004**: CSS architecture para Module Federation (Tailwind v4 + @source)
 - **ADR-005**: File organization — folder + explicit name, sem barrel exports
 - **ADR-006**: Disable DTS plugin (`dts: false`) — tipos via `@-label-/contracts`, sem valor com imports dinâmicos
+
+## TODO-04: Zustand Shell API + Right-Bar Panel System
+
+- **Zustand shell store** — 2 slices (RightBar LIFO stack + Selections mailbox) com `devtools` + `subscribeWithSelector` middleware
+- **ShellApiProvider** — React 19 `use()` + `createShellApi()` factory com referência estável via `useMemo`
+- **shellApi como prop** — `shellApi?: ShellApi` passada a todos os remotes (props over Context em federation)
+- **RightBar** — Sheet UI (shadcn) com panel registry recursivo, lazy loading via `lazyRemoteComponent`, tamanhos sm/md/lg
+- **Panel URL sync** — Zustand master, URL espelho. One-shot read no mount, mirror contínuo em runtime. Namespace `panel.*`
+- **`lazyRemoteComponent<P>` genérico** — suporte a typed props no mfe-loader para componentes lazy de federation
+- **DevTools toggle** — `VITE_ENABLE_STORE_DEVTOOLS` env var para Zustand DevTools
+- **Domain types** — `VehicleRef`, `VehicleStatus`, `VehicleType`, `RentalStatus`, `WorkOrderStatus`, `WorkOrderType` em `@-label-/contracts`
+- **E2E tests** (9 novos, 25 total):
+  - Shell API: store init, shellApi prop, cross-remote validation (3)
+  - Right-Bar: deep-link, entityId, close via Escape, URL sync, SPA nav (6)
+- **ADR-007**: Zustand Shell API — props over Context em federation
+- **ADR-008**: Right-bar panel URL sync — Zustand master, URL espelho, namespace `panel.*`
+- **ADR-009**: Cross-MFE selections — mailbox pattern para comunicação entre remotes

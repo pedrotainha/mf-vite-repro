@@ -72,6 +72,14 @@ Ficheiros de contexto disponíveis em `../POC_MFE_csr/docs/`:
 - **@tailwindcss/vite peerDeps:** versão 4.2.1 não lista Vite 8 nos peerDeps — apenas warning, funciona normalmente.
 - **`.__mf__temp` directories:** gerados pelo plugin MF no build, devem estar no `.gitignore` e `.prettierignore`.
 
+## Gotchas (descobertos no TODO-04)
+
+- **`react-hooks/static-components`:** componentes lazy de federation criados via `getOrCreatePanelComponent()` são detectados como "created during render". Solução: passar o componente como **prop** ao child component (mesmo pattern do `RemoteSlot` no App.tsx), em vez de resolver dentro do render.
+- **oxlint `exhaustive-deps`:** oxlint não honora `// eslint-disable` comments. Para one-shot effects, adicionar as deps ao array e usar `useRef` guard em vez de `[]` vazio.
+- **`setSearchParams` destrutivo:** `setSearchParams({ key: value })` apaga todos os outros query params. Usar **sempre** `setSearchParams(prev => { prev.set(...); return prev; })` com callback/merge pattern.
+- **Sheet overlay bloqueia clicks:** quando um `Sheet` (shadcn) está aberto, o overlay `data-state="open"` intercepts pointer events. Em E2E tests, usar `page.keyboard.press('Escape')` em vez de clicar no overlay, ou usar programmatic navigation.
+- **`getByText` strict mode com Sheet:** o `SheetTitle` e `SheetDescription` (sr-only) ambos contêm o mesmo texto. Usar `getByRole('heading', { name: '...' }).first()` para selectores mais específicos.
+
 ## E2E: Shared Console Error Fixture
 
 Todos os testes e2e DEVEM importar `test` e `expect` de `./fixtures` em vez de `@playwright/test`:
@@ -89,6 +97,9 @@ O fixture `consoleErrors` é `auto: true` — corre automaticamente no fim de ca
 | `localhost:9999` | Remote intencionalmente partido para testes de error-handling |
 | `Failed to load resource` | Companion browser-level do filtro `localhost:9999` |
 | `Download the React DevTools` | Mensagem info do React em dev mode, não é erro real |
+| `does not exist in container` | Panel module VehicleQuickView não existe no fleet (placeholder — TODO: expor módulo) |
+| `failed to load:` | MfeErrorBoundary log companion do erro de container acima |
+| `recreate this component tree` | React error boundary re-render message companion |
 
 ### Regra: nunca adicionar filtros sem justificação
 

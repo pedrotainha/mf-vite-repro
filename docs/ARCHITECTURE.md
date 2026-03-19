@@ -109,6 +109,58 @@ src/
 
 Detalhes em [ADR-005](adr/ADR-005-file-organization-convention.md)
 
+## State Management
+
+### Zustand Shell Store
+
+O host mantém um Zustand store com 2 slices:
+
+- **RightBarSlice** — stack LIFO de panels (`openPanel` push, `closePanel` pop, `updatePanelPayload`)
+- **SelectionsSlice** — mailbox pattern para comunicação cross-MFE (`vehicleSelection`)
+
+Middleware: `devtools` (toggle via `VITE_ENABLE_STORE_DEVTOOLS`) + `subscribeWithSelector`.
+
+### ShellApi
+
+Interface estável passada como prop `shellApi?: ShellApi` a cada remote:
+
+```typescript
+interface ShellApi {
+  openPanel(request: RightBarRequest): void;
+  closePanel(): void;
+  updatePanelPayload(payload: Record<string, unknown>): void;
+  completeVehicleSelection(vehicle: VehicleRef): void;
+  clearVehicleSelection(): void;
+  getVehicleSelection(): VehicleRef | null;
+  onVehicleSelectionChange(listener: (vehicle: VehicleRef | null) => void): () => void;
+  navigate(path: string): void;
+}
+```
+
+Criada via `createShellApi()` factory com `useShellStore.getState()` — referência estável via `useMemo`.
+
+Detalhes em [ADR-007](adr/ADR-007-zustand-shell-api.md).
+
+## Right-Bar Panel System
+
+### Panel Registry
+
+O `buildPanelRegistry()` recursivamente constrói um `Map<panelId, PanelRegistryEntry>` a partir das `panels` definidas em `mfe.config.json`. Cada panel é carregado via `lazyRemoteComponent` com cache.
+
+### URL Sync
+
+Zustand é master, URL é espelho. No mount: one-shot read de `panel.id` e `panel.entityId` da URL. Em runtime: Zustand → URL mirror via `setSearchParams(prev => ...)`.
+
+Namespace `panel.*` para evitar colisão com params de negócio dos MFEs.
+
+Detalhes em [ADR-008](adr/ADR-008-right-bar-panel-url-sync.md).
+
+### Cross-MFE Communication
+
+Mailbox pattern para selecções (ex: veículo). Producer escreve, consumer lê e limpa. `onVehicleSelectionChange` para reactividade via `zustand.subscribe()`.
+
+Detalhes em [ADR-009](adr/ADR-009-cross-mfe-selections-mailbox.md).
+
 ## Apps
 
 | App | Role | Dev Port | Preview Port | Status |
@@ -139,6 +191,8 @@ Detalhes em [ADR-005](adr/ADR-005-file-organization-convention.md)
   - `shell-navigation.spec.ts` — 6 testes (sidebar items, SPA nav fleet/rentals/maintenance, breadcrumbs)
   - `error-handling.spec.ts` — 3 testes (404 page, 404→home, broken remote error boundary)
   - `a11y.spec.ts` — 2 testes (home + fleet axe a11y check)
+  - `shell-api.spec.ts` — 3 testes (store init, shellApi prop, cross-remote)
+  - `right-bar.spec.ts` — 6 testes (deep-link, entityId, close, URL sync, SPA nav)
 - **Script:** `pnpm test:e2e`
 
 ## ADRs
@@ -150,3 +204,7 @@ Detalhes em [ADR-005](adr/ADR-005-file-organization-convention.md)
 | [003](adr/ADR-003-endpoint-api-mfes.md) | /api/mfes endpoint | Single source of truth para remotes |
 | [004](adr/ADR-004-css-architecture-module-federation.md) | CSS Architecture | Tailwind v4 globals + @source por MFE |
 | [005](adr/ADR-005-file-organization-convention.md) | File Organization | Folder + explicit name, sem barrel exports |
+| [006](adr/ADR-006-disable-dts-plugin.md) | Disable DTS Plugin | dts: false — tipos via @-label-/contracts |
+| [007](adr/ADR-007-zustand-shell-api.md) | Zustand Shell API | Props over Context em federation |
+| [008](adr/ADR-008-right-bar-panel-url-sync.md) | Right-Bar URL Sync | Zustand master, URL espelho, namespace panel.* |
+| [009](adr/ADR-009-cross-mfe-selections-mailbox.md) | Cross-MFE Selections | Mailbox pattern para comunicação cross-MFE |
