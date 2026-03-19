@@ -21,7 +21,14 @@
       "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf lint:all)",
       "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf prettier:all)",
       "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf typecheck:all)",
-      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf test:all)"
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf test:all)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf changeset status)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf changeset add --empty)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf version:packages)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf audit)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf outdated -r)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf update @module-federation/runtime @tailwindcss/vite tailwindcss vite @tanstack/react-query @types/react @types/react-dom lint-staged oxlint)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf update -r @module-federation/runtime @tailwindcss/vite tailwindcss vite @tanstack/react-query @types/react @types/react-dom lint-staged oxlint --latest)"
     ],
     "additionalDirectories": [
       "/Users/pedrotainha/repos/playacademy-site/public/images",

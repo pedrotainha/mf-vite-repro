@@ -13,7 +13,7 @@
   "devDependencies": {
     "@-label-/lint-config": "latest",
     "eslint": "9.39.2",
-    "oxlint": "1.54.0",
+    "oxlint": "1.56.0",
     "prettier": "3.8.1",
     "typescript": "5.9.3"
   },
