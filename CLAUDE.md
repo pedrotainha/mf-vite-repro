@@ -64,7 +64,7 @@ Ficheiros de contexto disponíveis em `../POC_MFE_csr/docs/`:
 - **@types/* no shared:** packages `@types/*` devem ser filtrados do `generateShared` — são type-only e o rolldown não consegue resolver os exports sob condições browser/module.
 - **Federation infrastructure no ignore:** `@module-federation/runtime` e `@module-federation/vite` devem estar no `ignore` do `generateShared` — são infraestrutura de federation e não podem ser tratados como shared deps (causa conflitos de inicialização).
 - **@-label-/mfe-loader no ignore:** este pacote wrappa `@module-federation/runtime` — se for shared, o plugin cria um wrapper virtual `loadShare` que perde os exports.
-- **@module-federation/dts-plugin __dirname bug:** o plugin DTS tem um bug com `__dirname` em ESM — é non-blocking (warning apenas, build funciona).
+- **DTS plugin desactivado (`dts: false`):** o plugin DTS foi desactivado em todas as apps — ver [ADR-006](docs/adr/ADR-006-disable-dts-plugin.md). Os imports de MFEs são dinâmicos e os tipos partilham-se via `@-label-/contracts`.
 - **@tailwindcss/vite peerDeps:** versão 4.2.1 não lista Vite 8 nos peerDeps — apenas warning, funciona normalmente.
 - **`.__mf__temp` directories:** gerados pelo plugin MF no build, devem estar no `.gitignore` e `.prettierignore`.
 
