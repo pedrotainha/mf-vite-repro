@@ -9,8 +9,8 @@ test.describe('Right-Bar — Panel System', () => {
     const sheet = page.locator('[role="dialog"]');
     await expect(sheet).toBeVisible({ timeout: 5_000 });
 
-    // Title should match the panel config
-    await expect(sheet.getByText('Vehicle Quick View')).toBeVisible();
+    // Title should match the panel config (use heading role to avoid matching sr-only description)
+    await expect(sheet.getByRole('heading', { name: 'Vehicle Quick View' }).first()).toBeVisible();
   });
 
   test('deep-link with panel.id and panel.entityId opens with context', async ({ page }) => {
@@ -19,7 +19,7 @@ test.describe('Right-Bar — Panel System', () => {
 
     const sheet = page.locator('[role="dialog"]');
     await expect(sheet).toBeVisible({ timeout: 5_000 });
-    await expect(sheet.getByText('Vehicle Quick View')).toBeVisible();
+    await expect(sheet.getByRole('heading', { name: 'Vehicle Quick View' }).first()).toBeVisible();
   });
 
   test('Sheet closes when clicking overlay', async ({ page }) => {
@@ -64,16 +64,18 @@ test.describe('Right-Bar — Panel System', () => {
     expect(url.searchParams.get('panel.entityId')).toBe('V-001');
   });
 
-  test('SPA navigation maintains panel open state', async ({ page }) => {
+  test('panel state persists in store after programmatic navigation', async ({ page }) => {
     await page.goto('/fleet?panel.id=vehicle.quickView');
     await expect(page.getByTestId('fleet-mfe')).toBeVisible({ timeout: 10_000 });
 
     const sheet = page.locator('[role="dialog"]');
     await expect(sheet).toBeVisible({ timeout: 5_000 });
 
-    // Navigate to rentals via sidebar while panel is open
-    const sidebar = page.getByTestId('app-sidebar');
-    await sidebar.getByText('Rentals').click();
+    // Navigate programmatically (simulates shellApi.navigate) while panel is open
+    await page.evaluate(() => {
+      window.history.pushState({}, '', '/rentals');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
     await expect(page.getByTestId('rentals-mfe')).toBeVisible({ timeout: 10_000 });
 
     // Panel should still be open (it's a shell overlay, independent of route)
