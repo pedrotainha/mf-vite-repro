@@ -16,13 +16,30 @@
       "Bash(find /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf -maxdepth 3 -name *federation* -o -name *mfe*)",
       "Bash(pnpm build:all)",
       "Bash(pnpm test:e2e)",
-      "Bash(pnpm exec:*)"
+      "Bash(pnpm exec:*)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf build:all)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf lint:all)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf prettier:all)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf typecheck:all)",
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf test:all)"
     ],
     "additionalDirectories": [
       "/Users/pedrotainha/repos/playacademy-site/public/images",
       "/Users/pedrotainha/repos/playacademy-site/src/app",
       "/Users/pedrotainha/repos/playacademy-site/src",
-      "/Users/pedrotainha/repos/playacademy-site"
+      "/Users/pedrotainha/repos/playacademy-site",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_api",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_api_codegen",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_changeset_publish_fix",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_commit_lint",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_csr",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_env_banner",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_infra",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_pr_guardian",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_repo_stamps",
+      "/Users/pedrotainha/repos/POC_MFE/POC_MFE_ui",
+      "/Users/pedrotainha/repos/POC_MFE/POC_mfe_localStorage",
+      "/Users/pedrotainha/repos/POC_MFE/cofi"
     ]
   }
 }
