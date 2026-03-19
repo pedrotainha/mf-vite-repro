@@ -181,6 +181,7 @@ Detalhes em [ADR-009](adr/ADR-009-cross-mfe-selections-mailbox.md).
 | @-label-/mfe-loader | initFederation, registerMfeRemotes, lazyRemoteComponent | TODO-02 |
 | @-label-/vite-plugin-mfe-config-api | Serve mfe.config.json como /api/mfes | TODO-02 |
 | @-label-/utils | Utilitários partilhados | TODO-01 |
+| @-label-/vite-plugin-mf-tla-fix | Fix para Top-Level Await deadlock em builds de produção com MF | TODO-03 |
 
 ## Testing
 

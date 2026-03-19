@@ -44,6 +44,11 @@ Não é aceitável que o user tenha de perguntar "a documentação está atualiz
 - Ao criar/modificar package.json → usar `/r_package-json` para validação
 - Ao terminar um TODO executar `/r_pipeline-react`
 
+## Regras de Documentação
+
+- **ARCHITECTURE.md** deve refletir apenas o que está **implementado e validado**. Nunca adicionar secções de planeamento ou patterns futuros — esses pertencem ao plano de migração (`MIGRATION_PLAN_MF_VITE.md`). Quando um TODO é fechado e introduz patterns novos, só nesse momento se actualiza o ARCHITECTURE.md.
+- **MIGRATION_PLAN_MF_VITE.md** é o sítio para documentar patterns, estratégias e decisões que serão implementadas em TODOs futuros.
+
 ## Plano de Migração
 
 Este repositório segue o plano documentado em `../POC_MFE_csr/docs/MIGRATION_PLAN_MF_VITE.md`.
