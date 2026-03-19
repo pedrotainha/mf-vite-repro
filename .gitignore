@@ -28,6 +28,7 @@ Thumbs.db
 
 # Module Federation temp
 **/__mf__temp/
+**/.__mf__temp/
 
 # Test
 test-results/

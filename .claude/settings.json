@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:playacademy.pt)",
+      "Bash(npx create-next-app@latest /Users/pedrotainha/repos/playacademy-site --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-pnpm --no-turbopack)",
+      "Read(//Users/pedrotainha/repos/**)",
+      "Bash(yes \"\")",
+      "Bash(npx create-next-app@latest playacademy-site --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-pnpm --no-turbopack)",
+      "Bash(pnpm add:*)",
+      "Bash(npx playwright:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(git checkout:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(git rm:*)",
+      "Bash(find /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf -maxdepth 3 -name *federation* -o -name *mfe*)",
+      "Bash(pnpm build:all)",
+      "Bash(pnpm test:e2e)",
+      "Bash(pnpm exec:*)"
+    ],
+    "additionalDirectories": [
+      "/Users/pedrotainha/repos/playacademy-site/public/images",
+      "/Users/pedrotainha/repos/playacademy-site/src/app",
+      "/Users/pedrotainha/repos/playacademy-site/src",
+      "/Users/pedrotainha/repos/playacademy-site"
+    ]
+  }
+}

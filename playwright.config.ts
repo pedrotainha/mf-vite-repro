@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: 'http://localhost:4173',
     trace: 'on-first-retry',
   },
   projects: [
@@ -19,13 +19,23 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'pnpm preview:fleet',
-      port: 5174,
+      command: 'pnpm --filter @-label-/fleet dev',
+      port: 4174,
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: 'pnpm preview:host',
-      port: 5173,
+      command: 'pnpm --filter @-label-/rentals dev',
+      port: 4175,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: 'pnpm --filter @-label-/maintenance dev',
+      port: 4176,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: 'pnpm --filter @-label-/host dev',
+      port: 4173,
       reuseExistingServer: !process.env.CI,
     },
   ],
