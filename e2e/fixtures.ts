@@ -25,18 +25,12 @@ export const test = base.extend<{ consoleErrors: string[] }>({
       // See docs/TODO_CONSOLE_ERRORS.md for tracking.
       const critical = errors.filter(
         error =>
-          !error.includes('favicon') &&
-          !error.includes('404') &&
-          !error.includes('net::ERR') &&
           // Intentional in error-handling tests (broken remote on purpose)
           !error.includes('localhost:9999') &&
+          // Browser-level resource failure (companion to the localhost:9999 filter above)
+          !error.includes('Failed to load resource') &&
           // React dev-mode info message, not a real error
-          !error.includes('Download the React DevTools') &&
-          // BUG: shadcn Breadcrumb renders <li> inside <li> — fix in component
-          !error.includes('cannot be a descendant') &&
-          !error.includes('cannot contain a nested') &&
-          // BUG: MF DTS plugin fails to fetch type hints in dev — configure or disable
-          !error.includes('dynamic-remote-type-hints-plugin'),
+          !error.includes('Download the React DevTools'),
       );
 
       expect(critical, 'Browser console should have no critical errors').toEqual([]);

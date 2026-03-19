@@ -75,22 +75,21 @@ const PageBreadcrumb = (): JSX.Element => {
             </BreadcrumbItem>
           </>
         ) : (
-          segments.map((segment, index) => {
+          segments.flatMap((segment, index) => {
             const path = '/' + segments.slice(0, index + 1).join('/');
             const isLast = index === segments.length - 1;
-            return isLast ? (
+            return [
+              <BreadcrumbSeparator key={`${path}-sep`} />,
               <BreadcrumbItem key={path}>
-                <BreadcrumbSeparator />
-                <BreadcrumbPage>{capitalize(segment)}</BreadcrumbPage>
-              </BreadcrumbItem>
-            ) : (
-              <BreadcrumbItem key={path}>
-                <BreadcrumbSeparator />
-                <BreadcrumbLink asChild>
-                  <Link to={path}>{capitalize(segment)}</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-            );
+                {isLast ? (
+                  <BreadcrumbPage>{capitalize(segment)}</BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink asChild>
+                    <Link to={path}>{capitalize(segment)}</Link>
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>,
+            ];
           })
         )}
       </BreadcrumbList>

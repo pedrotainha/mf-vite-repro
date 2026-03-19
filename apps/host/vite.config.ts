@@ -20,6 +20,7 @@ export default defineConfig({
     federation({
       name: 'host',
       remotes: {},
+      dts: false,
       hostInitInjectLocation: 'entry',
       shared: generateShared({
         cwd: __cwd,
