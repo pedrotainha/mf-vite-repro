@@ -75,7 +75,7 @@ Ficheiros de contexto disponíveis em `../POC_MFE_csr/docs/`:
 ## Gotchas (descobertos no TODO-04)
 
 - **`react-hooks/static-components`:** componentes lazy de federation criados via `getOrCreatePanelComponent()` são detectados como "created during render". Solução: passar o componente como **prop** ao child component (mesmo pattern do `RemoteSlot` no App.tsx), em vez de resolver dentro do render.
-- **oxlint `exhaustive-deps`:** oxlint não honora `// eslint-disable` comments. Para one-shot effects, adicionar as deps ao array e usar `useRef` guard em vez de `[]` vazio.
+- **oxlint disable syntax:** oxlint usa `// oxlint-disable-next-line <rule>` (não `eslint-disable`). Para suprimir regras do oxlint, usar sempre a directiva própria. Para one-shot effects com `exhaustive-deps`, a solução preferida é adicionar as deps ao array e usar `useRef` guard em vez de `[]` vazio.
 - **`setSearchParams` destrutivo:** `setSearchParams({ key: value })` apaga todos os outros query params. Usar **sempre** `setSearchParams(prev => { prev.set(...); return prev; })` com callback/merge pattern.
 - **Sheet overlay bloqueia clicks:** quando um `Sheet` (shadcn) está aberto, o overlay `data-state="open"` intercepts pointer events. Em E2E tests, usar `page.keyboard.press('Escape')` em vez de clicar no overlay, ou usar programmatic navigation.
 - **`getByText` strict mode com Sheet:** o `SheetTitle` e `SheetDescription` (sr-only) ambos contêm o mesmo texto. Usar `getByRole('heading', { name: '...' }).first()` para selectores mais específicos.
