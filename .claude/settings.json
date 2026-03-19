@@ -50,7 +50,20 @@
       "Bash(for app:*)",
       "Bash(node -e \"const p = require\\(''./$app/package.json''\\); console.log\\(''build:'', p.scripts?.build ? ''OK'' : ''MISSING''\\); console.log\\(''test:'', p.scripts?.test || ''MISSING''\\); console.log\\(''test:ci:'', p.scripts?.[''test:ci''] || ''MISSING''\\)\")",
       "Bash(node -e \"const p = require\\(''./package.json''\\); console.log\\(''test:ci:'', p.scripts?.[''test:ci''] || ''MISSING''\\); console.log\\(''build:'', p.scripts?.build || ''MISSING''\\)\")",
-      "Bash(npx simple-git-hooks:*)"
+      "Bash(npx simple-git-hooks:*)",
+      "Bash(pnpm audit:*)",
+      "Bash(pnpm -r outdated)",
+      "Bash(git push:*)",
+      "Read(//Users/pedrotainha/**)",
+      "Read(//Users/pedrotainha/.claude/**)",
+      "Bash(find /Users/pedrotainha/.claude -type f -name *.md -o -name settings.json)",
+      "Bash(grep -E '\\\\.\\(md|ts|js\\)$|^d')",
+      "Bash(find /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf/packages -maxdepth 2 -name \"package.json\" -type f -exec head -20 {} +)",
+      "Bash(pnpm install:*)",
+      "Bash(node -e \"const a = require\\(''/Users/pedrotainha/repos/POC_MFE/POC_MFE_lint_config/node_modules/@-label-/changeset-publish-fix/package.json''\\); const b = require\\(''/Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf/node_modules/@-label-/changeset-publish-fix/package.json''\\); console.log\\(''lint_config version:'', a.version\\); console.log\\(''csr_mf version:'', b.version\\)\")",
+      "Bash(npm view:*)",
+      "Bash(pnpm publish:packages --dry-run)",
+      "Bash(npm config:*)"
     ],
     "additionalDirectories": [
       "/Users/pedrotainha/repos/playacademy-site/public/images",
@@ -68,7 +81,9 @@
       "/Users/pedrotainha/repos/POC_MFE/POC_MFE_repo_stamps",
       "/Users/pedrotainha/repos/POC_MFE/POC_MFE_ui",
       "/Users/pedrotainha/repos/POC_MFE/POC_mfe_localStorage",
-      "/Users/pedrotainha/repos/POC_MFE/cofi"
+      "/Users/pedrotainha/repos/POC_MFE/cofi",
+      "/Users/pedrotainha/.claude/skills",
+      "/Users/pedrotainha"
     ]
   }
 }
