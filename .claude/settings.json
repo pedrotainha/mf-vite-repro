@@ -31,7 +31,8 @@
       "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf update -r @module-federation/runtime @tailwindcss/vite tailwindcss vite @tanstack/react-query @types/react @types/react-dom lint-staged oxlint --latest)",
       "Bash(pnpm typecheck:*)",
       "Bash(pnpm prettier:write)",
-      "Bash(pnpm --filter @-label-/host eslint:base --fix apps/host/src/App/App.tsx apps/host/src/Layout/Layout.tsx apps/host/src/shell/RightBar/RightBar.tsx apps/host/src/shell/ShellApiProvider/ShellApiProvider.tsx apps/host/src/shell/shell-store/shell-store.ts)"
+      "Bash(pnpm --filter @-label-/host eslint:base --fix apps/host/src/App/App.tsx apps/host/src/Layout/Layout.tsx apps/host/src/shell/RightBar/RightBar.tsx apps/host/src/shell/ShellApiProvider/ShellApiProvider.tsx apps/host/src/shell/shell-store/shell-store.ts)",
+      "Bash(pnpm --filter @-label-/host eslint:base --fix src/App/App.tsx src/Layout/Layout.tsx src/shell/RightBar/RightBar.tsx src/shell/ShellApiProvider/ShellApiProvider.tsx src/shell/shell-store/shell-store.ts)"
     ],
     "additionalDirectories": [
       "/Users/pedrotainha/repos/playacademy-site/public/images",
