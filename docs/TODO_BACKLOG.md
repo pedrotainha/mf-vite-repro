@@ -10,6 +10,8 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 ## Packages
 
 - [ ] Package `packages/shell-hooks` com hooks partilhados para cross-MFE (ex: `useVehicleSelection()`) — TODO-05
+- [ ] Extrair `@-label-/shell-core` — shell store com dynamic slice registry (vanilla JS, framework-agnostic) — ver ADR-010
+- [ ] Contracts por MFE (`@-label-/fleet-contracts`, `@-label-/rentals-contracts`, etc.) em repos separados — ver ADR-010. Para já, tipos de domínio vivem em `@-label-/contracts/domains/`
 
 ## Features
 

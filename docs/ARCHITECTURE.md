@@ -208,3 +208,4 @@ Detalhes em [ADR-009](adr/ADR-009-cross-mfe-selections-mailbox.md).
 | [007](adr/ADR-007-zustand-shell-api.md) | Zustand Shell API | Props over Context em federation |
 | [008](adr/ADR-008-right-bar-panel-url-sync.md) | Right-Bar URL Sync | Zustand master, URL espelho, namespace panel.* |
 | [009](adr/ADR-009-cross-mfe-selections-mailbox.md) | Cross-MFE Selections | Mailbox pattern para comunicação cross-MFE |
+| [010](adr/ADR-010-dynamic-slice-registry-mfe-contracts.md) | Dynamic Slice Registry | Registry dinâmico de slices + contracts por domínio MFE |
