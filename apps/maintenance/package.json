@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "test": "echo \"test — n/a\"",
+    "test:ci": "echo \"test:ci — n/a\"",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "pnpm run '/^(eslint|oxlint)$/'",

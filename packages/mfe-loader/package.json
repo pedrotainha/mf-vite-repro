@@ -24,6 +24,9 @@
     "typescript": "5.9.3"
   },
   "scripts": {
+    "build": "echo \"build — source-only package, consumed via pnpm workspaces\"",
+    "test": "echo \"test — n/a\"",
+    "test:ci": "echo \"test:ci — n/a\"",
     "typecheck": "tsc --noEmit",
     "lint": "pnpm run '/^(eslint|oxlint)$/'",
     "eslint:base": "eslint --cache --no-warn-ignored --max-warnings 0",
