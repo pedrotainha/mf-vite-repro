@@ -80,9 +80,21 @@ Todos os testes e2e DEVEM importar `test` e `expect` de `./fixtures` em vez de `
 import { expect, test } from './fixtures';
 ```
 
-O fixture `consoleErrors` é `auto: true` — corre automaticamente no fim de cada teste e valida que não existem erros críticos na consola do browser. Os filtros actuais estão documentados em `docs/TODO_CONSOLE_ERRORS.md` — o objetivo é resolver cada root cause e remover o filtro.
+O fixture `consoleErrors` é `auto: true` — corre automaticamente no fim de cada teste e valida que não existem erros críticos na consola do browser.
 
-Nunca adicionar novos filtros sem documentar no TODO e sem justificação clara.
+### Filtros intencionais (não são bugs)
+
+| Filter | Reason |
+|--------|--------|
+| `localhost:9999` | Remote intencionalmente partido para testes de error-handling |
+| `Failed to load resource` | Companion browser-level do filtro `localhost:9999` |
+| `Download the React DevTools` | Mensagem info do React em dev mode, não é erro real |
+
+### Regra: nunca adicionar filtros sem justificação
+
+- Cada filtro novo DEVE ter justificação clara e documentada.
+- O objetivo é sempre resolver o root cause em vez de filtrar.
+- Se um erro de consola aparecer nos testes, investigar a causa antes de adicionar filtro.
 
 ## Versionamento & Publish
 

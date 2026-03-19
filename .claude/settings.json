@@ -28,7 +28,10 @@
       "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf audit)",
       "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf outdated -r)",
       "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf update @module-federation/runtime @tailwindcss/vite tailwindcss vite @tanstack/react-query @types/react @types/react-dom lint-staged oxlint)",
-      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf update -r @module-federation/runtime @tailwindcss/vite tailwindcss vite @tanstack/react-query @types/react @types/react-dom lint-staged oxlint --latest)"
+      "Bash(pnpm -C /Users/pedrotainha/repos/POC_MFE/POC_MFE_csr_mf update -r @module-federation/runtime @tailwindcss/vite tailwindcss vite @tanstack/react-query @types/react @types/react-dom lint-staged oxlint --latest)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm prettier:write)",
+      "Bash(pnpm --filter @-label-/host eslint:base --fix apps/host/src/App/App.tsx apps/host/src/Layout/Layout.tsx apps/host/src/shell/RightBar/RightBar.tsx apps/host/src/shell/ShellApiProvider/ShellApiProvider.tsx apps/host/src/shell/shell-store/shell-store.ts)"
     ],
     "additionalDirectories": [
       "/Users/pedrotainha/repos/playacademy-site/public/images",
