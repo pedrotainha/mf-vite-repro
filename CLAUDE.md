@@ -8,7 +8,7 @@
 - Qualquer sugestão de projeto novo é com node 24 e pnpm 10, bibliotecas sempre que possível as últimas versões, caso não seja alertar antes de continuar.
 - Quando for para consumir pacotes fora deste repo temos de instalar via pnpm i _PATH_.
 - Após instalar/update ou remover packages valida pnpm audit.
-- Após finalizar uma iteração, verifica se é uma feature deste POC para poder registar.
+- Após finalizar uma iteração, verifica se é uma feature deste POC para poder registar nos ficheiros de features adequados.
 
 - Uma nota muito importante sobre os testes, deves me pedir autorização sempre para alterar um teste ou unit test quando este antes já dava ok, portanto se já existia o teste então estava bem, se falhou com alguma iteração é importante ter certeza do meu lado que é intencional mudar o teste.
 
@@ -24,7 +24,11 @@ Antes de declarar qualquer TODO como completo, o agente DEVE executar automatica
 
 1. **Gotchas** — gravar no CLAUDE.md (secção Gotchas do TODO-XX) qualquer gotcha descoberto
 2. **ADRs** — criar/atualizar os ADRs previstos no TODO (ver MIGRATION_PLAN_MF_VITE.md)
-3. **FEATURES.md** — actualizar com as features implementadas neste TODO
+3. **Features** — actualizar o ficheiro adequado conforme o tipo de feature:
+   - `docs/FEATURES_FUNCTIONAL.md` — features orientadas ao utilizador/produto (UI, navegação, MFEs)
+   - `docs/FEATURES_TECHNICAL.md` — decisões técnicas, arquitectura, patterns e ADRs
+   - `docs/FEATURES_TOOLING.md` — stack de tooling, changesets, lint, formatting, majors pinadas
+   - `docs/FEATURES.md` — index que aponta para os 3 ficheiros acima (não colocar conteúdo aqui)
 4. **ARCHITECTURE.md** — actualizar se houve mudanças arquitecturais
 5. **README.md** — actualizar se stack/scripts/estrutura mudou
 6. **Commit documentação** — commitar tudo junto ou em commit separado de docs
