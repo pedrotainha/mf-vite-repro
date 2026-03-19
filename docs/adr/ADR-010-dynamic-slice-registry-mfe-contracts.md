@@ -254,28 +254,13 @@ Sem imports de React, sem hooks, sem Context.
 ### Contracts por domínio
 
 1. **Infra** em `@-label-/contracts` — `ShellApi`, `SliceDescriptor`, `registerSlice`
-2. **Domínio** em `@-label-/*-contracts` — tipos e descriptors de cada MFE
-3. **Transição:** enquanto monorepo, domínio vive em `@-label-/contracts/domains/*.ts`
-4. **Quando multi-repo:** extrair para packages separados co-localizados com o MFE
+2. **Domínio** em `@-label-/*-contracts` — tipos e descriptors de cada MFE, co-localizados com o repo do MFE
 
 ### Type-safety
 
 1. **Slice descriptors** são constantes tipadas (`as const satisfies SliceDescriptor<T>`)
 2. **Nomes de slices** vêm de constantes importadas, nunca de strings soltas
 3. **Genéricos** na API: `getSliceState<FleetSlice>(FLEET_SLICE.name)`
-
----
-
-## Implementação Faseada
-
-| Fase | O quê | Quando |
-|------|-------|--------|
-| 1 | Tipos `SliceDescriptor`, `registerSlice` etc. em `@-label-/contracts` | TODO futuro |
-| 2 | `@-label-/shell-core` com dynamic registry (`zustand/vanilla`) | TODO futuro |
-| 3 | Migrar slices actuais do host para usar `@-label-/shell-core` | TODO futuro |
-| 4 | `@-label-/shell-hooks` com `useSlice()` reactivo | TODO-05 (parcial) |
-| 5 | `@-label-/contracts/domains/` com tipos por MFE | TODO futuro |
-| 6 | Extrair `@-label-/*-contracts` para repos separados | Quando multi-repo |
 
 ---
 
