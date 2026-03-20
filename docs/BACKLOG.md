@@ -17,6 +17,7 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 
 - [ ] Auth/RBAC/RoleSwitcher — quando houver requisitos detalhados
 - [ ] Telemetry/trackEvent — quando decidir APM RUM
+- [ ] **MSW passthrough selectivo** — investigar como usar MSW com vários endpoints mockados mas permitir que endpoints específicos mantenham a lógica real (passthrough). Útil para cenários onde se quer mockar a maioria dos endpoints mas manter um ou dois com chamadas reais (ex: `passthrough()` handler ou ordem de handlers)
 
 ## Documentação
 
