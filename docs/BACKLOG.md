@@ -4,6 +4,7 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 
 ## Tooling
 
+- [ ] **Playwright env files** — substituir as variáveis de ambiente inline nos scripts `test:e2e:smoke:*` por ficheiros `.env.dev-dev.playwright`, `.env.dev-preview.playwright`, `.env.preview-preview.playwright` que contenham as `E2E_*` vars. O script do `package.json` passaria apenas o ficheiro (ex: `dotenv -e .env.dev-dev.playwright pnpm run test:e2e:smoke`). Mais legível, mais fácil de manter, e evita linhas enormes nos scripts
 - [ ] Regra ESLint para detectar `setSearchParams()` destrutivo (sem callback/prev) — ver ADR-008
 - [ ] `VITE_ENABLE_STORE_DEVTOOLS` — no futuro poderia controlar também React Query DevTools
 - [ ] **Browser targets** — definir `browserslist` (ou equivalente em `build.target` do Vite) em todos os projectos para garantir que o output de build está alinhado com os browsers suportados. Sem target explícito, o Vite usa defaults que podem incluir syntax demasiado moderna ou gerar polyfills desnecessários
