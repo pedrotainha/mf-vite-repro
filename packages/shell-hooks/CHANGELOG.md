@@ -1,4 +1,4 @@
-# @-label-/contracts
+# @-label-/shell-hooks
 
 ## 0.2.0
 
@@ -9,8 +9,7 @@
   - @-label-/shell-hooks: new package — React bindings (useShellStore, ShellApiProvider, useShellApi, useSlice)
   - @-label-/contracts: added SliceDescriptor type, dynamic ShellApi methods, domain contracts (FleetSlice, RentalsSlice, MaintenanceSlice)
 
-## 0.1.0
+### Patch Changes
 
-### Minor Changes
-
-- Add ShellApi, domain types (VehicleRef, VehicleStatus, etc.), and panel config types for TODO-04 shell state management
+- Updated dependencies
+  - @-label-/shell-core@0.2.0

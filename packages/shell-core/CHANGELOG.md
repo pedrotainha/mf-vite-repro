@@ -1,4 +1,4 @@
-# @-label-/contracts
+# @-label-/shell-core
 
 ## 0.2.0
 
@@ -8,9 +8,3 @@
   - @-label-/shell-core: new package — zustand/vanilla store factory with dynamic slice registry, ref-counting, pluggable host slices, createShellApi
   - @-label-/shell-hooks: new package — React bindings (useShellStore, ShellApiProvider, useShellApi, useSlice)
   - @-label-/contracts: added SliceDescriptor type, dynamic ShellApi methods, domain contracts (FleetSlice, RentalsSlice, MaintenanceSlice)
-
-## 0.1.0
-
-### Minor Changes
-
-- Add ShellApi, domain types (VehicleRef, VehicleStatus, etc.), and panel config types for TODO-04 shell state management
