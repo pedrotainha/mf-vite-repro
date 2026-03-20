@@ -26,6 +26,10 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 - [ ] Rever ADRs — remover referências a TODOs de implementação e focar no racional da decisão. Quem lê os ADRs precisa de perceber as questões que se colocaram e porquê se tomou determinada decisão, não os detalhes de implementação por iteração. As secções de contexto, questões e alternativas consideradas são o valor — manter e reforçar.
 - [ ] **Diagrama shell/host vs MFE standalone** — criar diagrama (Mermaid) que explique: (1) o que o host/shell carrega (providers, router, shared deps, layout) e o que os MFEs **não** precisam de carregar quando correm dentro do host; (2) quando um MFE arranca em modo standalone, o que carrega por si próprio; (3) dois modos de standalone — `dev` (Vite dev server) vs `build + preview` (bundle estático servido localmente). O objetivo é que qualquer developer consiga perceber a diferença de responsabilidades entre host e remote em cada cenário
 
+## E2E / Testing
+
+- [ ] **Visual regression: Host vs Standalone** — usar Playwright screenshots parciais (`locator.screenshot()`) para capturar a zona `<main>` de um remote **dentro do host** e o mesmo remote **standalone**, e comparar pixel-a-pixel com `pixelmatch`. Objetivo: garantir que o remote renderiza de forma idêntica nos dois contextos. Requer viewport igual, `networkidle` antes do screenshot, e atenção a wrappers/padding do slot no host.
+
 ## Console Errors (E2E Fixture Filters)
 
 Filtros temporários adicionados ao `e2e/fixtures.ts` que devem ser resolvidos:
