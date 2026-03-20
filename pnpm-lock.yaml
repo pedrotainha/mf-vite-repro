@@ -4,13 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@module-federation/vite':
+    hash: 41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb
+    path: patches/@module-federation__vite.patch
+
 importers:
 
   .:
     devDependencies:
       '@-label-/changeset-publish-fix':
         specifier: latest
-        version: 0.1.9
+        version: 0.1.11
       '@-label-/commit-lint':
         specifier: latest
         version: 0.3.3
@@ -68,7 +73,7 @@ importers:
         version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
       '@module-federation/vite':
         specifier: 1.13.1
-        version: 1.13.1(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
+        version: 1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: 4.2.2
         version: 4.2.2(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
@@ -150,7 +155,7 @@ importers:
         version: 4.11.1(playwright-core@1.58.2)
       '@module-federation/vite':
         specifier: 1.13.1
-        version: 1.13.1(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
+        version: 1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: 4.2.2
         version: 4.2.2(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
@@ -205,7 +210,7 @@ importers:
         version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
       '@module-federation/vite':
         specifier: 1.13.1
-        version: 1.13.1(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
+        version: 1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: 4.2.2
         version: 4.2.2(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
@@ -260,7 +265,7 @@ importers:
         version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
       '@module-federation/vite':
         specifier: 1.13.1
-        version: 1.13.1(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
+        version: 1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: 4.2.2
         version: 4.2.2(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
@@ -380,15 +385,6 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  packages/vite-plugin-mf-tla-fix:
-    devDependencies:
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-      vite:
-        specifier: 8.0.1
-        version: 8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2)
-
   packages/vite-plugin-mfe-config-api:
     dependencies:
       vite:
@@ -413,8 +409,8 @@ importers:
 
 packages:
 
-  '@-label-/changeset-publish-fix@0.1.9':
-    resolution: {integrity: sha512-WG62BVxnlLEmNp/lxgiH3iMrsXoN9dMx6erFVKWlcUSdja1hDQbkgQYM46NpjQPytucwW8jUtoy/vX15/wHfvg==}
+  '@-label-/changeset-publish-fix@0.1.11':
+    resolution: {integrity: sha512-WH78REnQ7TvuPm5P9mR9umvk9bckUdDTVLcplmFP7jSlcE8Lj9sAD8MuB12fCXvc6sEbTn0F+7P1BQXys2Pvmg==}
     hasBin: true
 
   '@-label-/commit-lint@0.3.3':
@@ -4431,7 +4427,7 @@ packages:
 
 snapshots:
 
-  '@-label-/changeset-publish-fix@0.1.9': {}
+  '@-label-/changeset-publish-fix@0.1.11': {}
 
   '@-label-/commit-lint@0.3.3': {}
 
@@ -5114,7 +5110,7 @@ snapshots:
       fs-extra: 9.1.0
       resolve: 1.22.8
 
-  '@module-federation/vite@1.13.1(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))':
+  '@module-federation/vite@1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))':
     dependencies:
       '@module-federation/dts-plugin': 2.2.2(typescript@5.9.3)
       '@module-federation/runtime': 2.2.2

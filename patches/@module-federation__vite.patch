@@ -1,0 +1,124 @@
+diff --git a/lib/index.cjs b/lib/index.cjs
+index 380818c3f428c2be7fdaf8107cd567fb1fb0059d..4ba8a44a3f7851af95dcf136efe0ff15fc3a7a88 100644
+--- a/lib/index.cjs
++++ b/lib/index.cjs
+@@ -1146,10 +1146,54 @@ function getLoadShareModulePath(pkg, isRolldown, command) {
+ function writeLoadShareModule(pkg, shareItem, command, isRolldown) {
+ 	if (!loadShareCacheMap[pkg]) loadShareCacheMap[pkg] = new VirtualModule(pkg, LOAD_SHARE_TAG, isRolldown || command === "build" ? ".mjs" : ".js");
+ 	const useESM = command === "build" || isRolldown;
+-	const importLine = command === "build" ? getRuntimeInitPromiseBootstrapCode() : useESM ? `${getRuntimeInitBootstrapCode()}
+-    const { initPromise } = globalThis[globalKey];` : `const {initPromise} = require("${virtualRuntimeInitStatus.getImportId()}")`;
++	/* --- PATCH: pre-init from prebuild for build mode (Rolldown TLA workaround) --- */
++	if (command === "build") {
++		const prebuildId = getPreBuildLibImportId(pkg);
++		const namedExports = getPackageNamedExports(pkg);
++		const importLine = getRuntimeInitPromiseBootstrapCode();
++		const loadShareCall = `initPromise.then(runtime => runtime.loadShare(${JSON.stringify(pkg)}, {
++      customShareInfo: {shareConfig:{
++        singleton: ${shareItem.shareConfig.singleton},
++        strictVersion: ${shareItem.shareConfig.strictVersion},
++        requiredVersion: ${JSON.stringify(shareItem.shareConfig.requiredVersion)}
++      }}
++    })).then((factory) => (typeof factory === "function" ? factory() : factory))`;
++		let moduleCode;
++		if (namedExports.length > 0) {
++			const destructureLet = `let { ${namedExports.map((name, i) => `${name}: __mf_${i}`).join(", ")} } = exportModule;`;
++			const reDestructure = `({ ${namedExports.map((name, i) => `${name}: __mf_${i}`).join(", ")} } = exportModule);`;
++			const namedExportLine = `export { ${namedExports.map((name, i) => `__mf_${i} as ${name}`).join(", ")} };`;
++			moduleCode = `
++    import * as __mf_prebuild_ns__ from ${JSON.stringify(prebuildId)};
++    ${importLine}
++    let exportModule = __mf_prebuild_ns__.default ?? __mf_prebuild_ns__;
++    ${destructureLet}
++    export { exportModule as default };
++    ${namedExportLine}
++    ${loadShareCall}.then(function(__mf_resolved__) {
++      exportModule = __mf_resolved__;
++      ${reDestructure}
++    });
++  `;
++		} else {
++			moduleCode = `
++    import * as __mf_prebuild_ns__ from ${JSON.stringify(prebuildId)};
++    ${importLine}
++    let exportModule = __mf_prebuild_ns__.default ?? __mf_prebuild_ns__;
++    export { exportModule as default };
++    export * from ${JSON.stringify(prebuildId)};
++    ${loadShareCall}.then(function(__mf_resolved__) {
++      exportModule = __mf_resolved__;
++    });
++  `;
++		}
++		loadShareCacheMap[pkg].writeSync(moduleCode);
++		return;
++	}
++	/* --- END PATCH --- */
++	const importLine = isRolldown ? `${getRuntimeInitBootstrapCode()}\n    const { initPromise } = globalThis[globalKey];` : `const {initPromise} = require("${virtualRuntimeInitStatus.getImportId()}")`;
+ 	const awaitOrPlaceholder = useESM ? "await " : "/*mf top-level-await placeholder replacement mf*/";
+-	const useSsrProviderFallback = hasPackageDependency("vinext") && command === "build" && pkg === "react";
++	const useSsrProviderFallback = hasPackageDependency("vinext") && pkg === "react";
+ 	const providerImportId = getLocalProviderImportPath(pkg) || getPreBuildLibImportId(pkg);
+ 	const namedExports = getPackageNamedExports(pkg);
+ 	let exportLine;
+diff --git a/lib/index.mjs b/lib/index.mjs
+index a7dce5bf396b7f224e214bd8117ac16fdc20301b..7f3734a569c0b8c2d63ee978eb811a6e9f68e3b4 100644
+--- a/lib/index.mjs
++++ b/lib/index.mjs
+@@ -1123,10 +1123,54 @@ function getLoadShareModulePath(pkg, isRolldown, command) {
+ function writeLoadShareModule(pkg, shareItem, command, isRolldown) {
+ 	if (!loadShareCacheMap[pkg]) loadShareCacheMap[pkg] = new VirtualModule(pkg, LOAD_SHARE_TAG, isRolldown || command === "build" ? ".mjs" : ".js");
+ 	const useESM = command === "build" || isRolldown;
+-	const importLine = command === "build" ? getRuntimeInitPromiseBootstrapCode() : useESM ? `${getRuntimeInitBootstrapCode()}
+-    const { initPromise } = globalThis[globalKey];` : `const {initPromise} = require("${virtualRuntimeInitStatus.getImportId()}")`;
++	/* --- PATCH: pre-init from prebuild for build mode (Rolldown TLA workaround) --- */
++	if (command === "build") {
++		const prebuildId = getPreBuildLibImportId(pkg);
++		const namedExports = getPackageNamedExports(pkg);
++		const importLine = getRuntimeInitPromiseBootstrapCode();
++		const loadShareCall = `initPromise.then(runtime => runtime.loadShare(${JSON.stringify(pkg)}, {
++      customShareInfo: {shareConfig:{
++        singleton: ${shareItem.shareConfig.singleton},
++        strictVersion: ${shareItem.shareConfig.strictVersion},
++        requiredVersion: ${JSON.stringify(shareItem.shareConfig.requiredVersion)}
++      }}
++    })).then((factory) => (typeof factory === "function" ? factory() : factory))`;
++		let moduleCode;
++		if (namedExports.length > 0) {
++			const destructureLet = `let { ${namedExports.map((name, i) => `${name}: __mf_${i}`).join(", ")} } = exportModule;`;
++			const reDestructure = `({ ${namedExports.map((name, i) => `${name}: __mf_${i}`).join(", ")} } = exportModule);`;
++			const namedExportLine = `export { ${namedExports.map((name, i) => `__mf_${i} as ${name}`).join(", ")} };`;
++			moduleCode = `
++    import * as __mf_prebuild_ns__ from ${JSON.stringify(prebuildId)};
++    ${importLine}
++    let exportModule = __mf_prebuild_ns__.default ?? __mf_prebuild_ns__;
++    ${destructureLet}
++    export { exportModule as default };
++    ${namedExportLine}
++    ${loadShareCall}.then(function(__mf_resolved__) {
++      exportModule = __mf_resolved__;
++      ${reDestructure}
++    });
++  `;
++		} else {
++			moduleCode = `
++    import * as __mf_prebuild_ns__ from ${JSON.stringify(prebuildId)};
++    ${importLine}
++    let exportModule = __mf_prebuild_ns__.default ?? __mf_prebuild_ns__;
++    export { exportModule as default };
++    export * from ${JSON.stringify(prebuildId)};
++    ${loadShareCall}.then(function(__mf_resolved__) {
++      exportModule = __mf_resolved__;
++    });
++  `;
++		}
++		loadShareCacheMap[pkg].writeSync(moduleCode);
++		return;
++	}
++	/* --- END PATCH --- */
++	const importLine = isRolldown ? `${getRuntimeInitBootstrapCode()}\n    const { initPromise } = globalThis[globalKey];` : `const {initPromise} = require("${virtualRuntimeInitStatus.getImportId()}")`;
+ 	const awaitOrPlaceholder = useESM ? "await " : "/*mf top-level-await placeholder replacement mf*/";
+-	const useSsrProviderFallback = hasPackageDependency("vinext") && command === "build" && pkg === "react";
++	const useSsrProviderFallback = hasPackageDependency("vinext") && pkg === "react";
+ 	const providerImportId = getLocalProviderImportPath(pkg) || getPreBuildLibImportId(pkg);
+ 	const namedExports = getPackageNamedExports(pkg);
+ 	let exportLine;

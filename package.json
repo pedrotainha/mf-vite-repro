@@ -82,6 +82,9 @@
       "@-label-/lint-config",
       "esbuild",
       "simple-git-hooks"
-    ]
+    ],
+    "patchedDependencies": {
+      "@module-federation/vite": "patches/@module-federation__vite.patch"
+    }
   }
 }
