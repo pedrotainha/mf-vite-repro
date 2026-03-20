@@ -1,5 +1,12 @@
 import type { VehicleRef } from './domain.types';
 
+// ── Slice Descriptor ─────────────────────────────────────────
+
+export interface SliceDescriptor<T = Record<string, unknown>> {
+  name: string;
+  initialState: T;
+}
+
 // ── Right-bar ────────────────────────────────────────────────
 
 export interface RightBarRequest {
@@ -42,4 +49,11 @@ export interface ShellApi {
 
   // Navigation
   navigate(path: string): void;
+
+  // Dynamic slice registry
+  registerSlice<T>(descriptor: SliceDescriptor<T>): void;
+  unregisterSlice(name: string): void;
+  getSliceState<T>(name: string): T | undefined;
+  setSliceState<T>(name: string, partial: Partial<T>): void;
+  onSliceChange<T>(name: string, listener: (state: T) => void): () => void;
 }

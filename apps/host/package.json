@@ -23,6 +23,8 @@
   "dependencies": {
     "@-label-/contracts": "workspace:*",
     "@-label-/mfe-loader": "workspace:*",
+    "@-label-/shell-core": "workspace:*",
+    "@-label-/shell-hooks": "workspace:*",
     "@-label-/ui-internal-core": "0.3.33",
     "@module-federation/runtime": "2.2.3",
     "@tanstack/react-query": "5.91.2",

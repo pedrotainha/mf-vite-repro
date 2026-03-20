@@ -2,11 +2,12 @@ import { Suspense, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { MfeErrorBoundary } from '../../MfeErrorBoundary/MfeErrorBoundary';
-import { useShellStore } from '../shell-store/shell-store';
 import { useShellApi } from '../ShellApiProvider/ShellApiProvider';
 
 import type { MfeConfigEntry, MfePanelConfig } from '@-label-/contracts';
 import { lazyRemoteComponent } from '@-label-/mfe-loader';
+import type { RightBarSliceState } from '@-label-/shell-core';
+import { useShellStore } from '@-label-/shell-hooks';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@-label-/ui-internal-core';
 
 // ── Panel Size Map ──────────────────────────────────────────
@@ -82,7 +83,9 @@ const PanelContent = ({
   entry: PanelRegistryEntry;
 }): React.JSX.Element => {
   const shellApi = useShellApi();
-  const topPanel = useShellStore(selectTopPanel);
+  const topPanel = useShellStore(
+    selectTopPanel as (s: Record<string, unknown>) => { panelId: string; payload: Record<string, unknown> } | null,
+  );
   const Component = component;
 
   return (
@@ -99,8 +102,10 @@ const PanelContent = ({
 const usePanelUrlSync = (): void => {
   const [searchParameters, setSearchParameters] = useSearchParams();
   const shellApi = useShellApi();
-  const isOpen = useShellStore(s => s.rightBar.isOpen);
-  const topPanel = useShellStore(selectTopPanel);
+  const isOpen = useShellStore(s => (s as unknown as RightBarSliceState).rightBar.isOpen);
+  const topPanel = useShellStore(
+    selectTopPanel as (s: Record<string, unknown>) => { panelId: string; payload: Record<string, unknown> } | null,
+  );
 
   const mountedRef = useRef(false);
 
@@ -148,9 +153,11 @@ const usePanelUrlSync = (): void => {
 export const RightBar = ({ configs }: { configs: readonly MfeConfigEntry[] }): React.JSX.Element => {
   usePanelUrlSync();
 
-  const isOpen = useShellStore(s => s.rightBar.isOpen);
-  const topPanel = useShellStore(selectTopPanel);
-  const closePanel = useShellStore(s => s.closePanel);
+  const isOpen = useShellStore(s => (s as unknown as RightBarSliceState).rightBar.isOpen);
+  const topPanel = useShellStore(
+    selectTopPanel as (s: Record<string, unknown>) => { panelId: string; payload: Record<string, unknown> } | null,
+  );
+  const closePanel = useShellStore(s => (s as unknown as RightBarSliceState).closePanel);
 
   const registry = useMemo(() => buildPanelRegistry(configs), [configs]);
   const currentEntry = topPanel ? registry.get(topPanel.panelId) : null;

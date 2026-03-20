@@ -24,7 +24,15 @@ export default defineConfig({
       hostInitInjectLocation: 'entry',
       shared: generateShared({
         cwd: __cwd,
-        ignore: ['@-label-/mfe-loader', '@-label-/ui-internal-core', '@module-federation/runtime', '@module-federation/vite'],
+        ignore: [
+          '@-label-/contracts',
+          '@-label-/mfe-loader',
+          '@-label-/shell-core',
+          '@-label-/shell-hooks',
+          '@-label-/ui-internal-core',
+          '@module-federation/runtime',
+          '@module-federation/vite',
+        ],
       }),
     }),
   ],

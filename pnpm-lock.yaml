@@ -52,6 +52,9 @@ importers:
 
   apps/fleet:
     dependencies:
+      '@-label-/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@module-federation/runtime':
         specifier: 2.2.3
         version: 2.2.3
@@ -113,6 +116,12 @@ importers:
       '@-label-/mfe-loader':
         specifier: workspace:*
         version: link:../../packages/mfe-loader
+      '@-label-/shell-core':
+        specifier: workspace:*
+        version: link:../../packages/shell-core
+      '@-label-/shell-hooks':
+        specifier: workspace:*
+        version: link:../../packages/shell-hooks
       '@-label-/ui-internal-core':
         specifier: 0.3.33
         version: 0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
@@ -189,6 +198,9 @@ importers:
 
   apps/maintenance:
     dependencies:
+      '@-label-/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@module-federation/runtime':
         specifier: 2.2.3
         version: 2.2.3
@@ -244,6 +256,9 @@ importers:
 
   apps/rentals:
     dependencies:
+      '@-label-/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@module-federation/runtime':
         specifier: 2.2.3
         version: 2.2.3
@@ -367,7 +382,91 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  packages/shell-core:
+    dependencies:
+      zustand:
+        specifier: 5.0.12
+        version: 5.0.12(@types/react@19.2.14)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))
+    devDependencies:
+      '@-label-/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@-label-/lint-config':
+        specifier: latest
+        version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
+      eslint:
+        specifier: 9.39.2
+        version: 9.39.2(jiti@2.6.1)
+      oxlint:
+        specifier: 1.56.0
+        version: 1.56.0
+      prettier:
+        specifier: 3.8.1
+        version: 3.8.1
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  packages/shell-hooks:
+    dependencies:
+      '@-label-/shell-core':
+        specifier: workspace:*
+        version: link:../shell-core
+      react:
+        specifier: 19.2.4
+        version: 19.2.4
+      react-router:
+        specifier: 7.13.1
+        version: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      zustand:
+        specifier: 5.0.12
+        version: 5.0.12(@types/react@19.2.14)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))
+    devDependencies:
+      '@-label-/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@-label-/lint-config':
+        specifier: latest
+        version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
+      '@types/react':
+        specifier: 19.2.14
+        version: 19.2.14
+      eslint:
+        specifier: 9.39.2
+        version: 9.39.2(jiti@2.6.1)
+      oxlint:
+        specifier: 1.56.0
+        version: 1.56.0
+      prettier:
+        specifier: 3.8.1
+        version: 3.8.1
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
   packages/utils:
+    devDependencies:
+      '@-label-/lint-config':
+        specifier: latest
+        version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
+      eslint:
+        specifier: 9.39.2
+        version: 9.39.2(jiti@2.6.1)
+      oxlint:
+        specifier: 1.56.0
+        version: 1.56.0
+      prettier:
+        specifier: 3.8.1
+        version: 3.8.1
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  packages/vite-plugin-config-chunk:
+    dependencies:
+      vite:
+        specifier: 8.0.1
+        version: 8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2)
     devDependencies:
       '@-label-/lint-config':
         specifier: latest

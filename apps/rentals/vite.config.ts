@@ -22,7 +22,7 @@ export default defineConfig({
       },
       shared: generateShared({
         cwd: __cwd,
-        ignore: ['@-label-/mfe-loader', '@module-federation/runtime', '@module-federation/vite'],
+        ignore: ['@-label-/contracts', '@-label-/mfe-loader', '@module-federation/runtime', '@module-federation/vite'],
       }),
     }),
   ],
