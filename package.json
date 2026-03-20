@@ -36,7 +36,6 @@
     "test:e2e:smoke": "playwright test --config playwright.smoke.config.ts",
     "test:e2e:smoke:dev-dev": "E2E_HOST_URL=http://localhost:4173 E2E_FLEET_ENTRY=http://localhost:4174/remoteEntry.js E2E_RENTALS_ENTRY=http://localhost:4175/remoteEntry.js E2E_MAINTENANCE_ENTRY=http://localhost:4176/remoteEntry.js pnpm run test:e2e:smoke",
     "test:e2e:smoke:dev-preview": "E2E_HOST_URL=http://localhost:4173 E2E_FLEET_ENTRY=http://localhost:5174/remoteEntry.js E2E_RENTALS_ENTRY=http://localhost:5175/remoteEntry.js E2E_MAINTENANCE_ENTRY=http://localhost:5176/remoteEntry.js pnpm run test:e2e:smoke",
-    "test:e2e:smoke:preview-dev": "E2E_HOST_URL=http://localhost:5173 E2E_FLEET_ENTRY=http://localhost:4174/remoteEntry.js E2E_RENTALS_ENTRY=http://localhost:4175/remoteEntry.js E2E_MAINTENANCE_ENTRY=http://localhost:4176/remoteEntry.js pnpm run test:e2e:smoke",
     "test:e2e:smoke:preview-preview": "E2E_HOST_URL=http://localhost:5173 E2E_FLEET_ENTRY=http://localhost:5174/remoteEntry.js E2E_RENTALS_ENTRY=http://localhost:5175/remoteEntry.js E2E_MAINTENANCE_ENTRY=http://localhost:5176/remoteEntry.js pnpm run test:e2e:smoke",
     "typecheck": "pnpm -r run typecheck",
     "typecheck:all": "pnpm -r --include-workspace-root run typecheck",

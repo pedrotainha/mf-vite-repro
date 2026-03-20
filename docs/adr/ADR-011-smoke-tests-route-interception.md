@@ -34,14 +34,15 @@ Para validar que a integração funciona ponta a ponta, precisamos de testes de 
 5. O browser faz `fetch('/api/mfes')` — o Playwright intercepta e devolve o JSON com as URLs correctas
 6. O host regista os remotes e carrega os `remoteEntry.js` dos URLs indicados
 
-### As 4 combinações locais
+### As 3 combinações suportadas
 
 | # | Host | Remotes | E2E_HOST_URL | E2E_*_ENTRY |
 |---|------|---------|-------------|-------------|
 | 1 | dev | dev | `http://localhost:4173` | `http://localhost:4174/remoteEntry.js` |
 | 2 | dev | preview | `http://localhost:4173` | `http://localhost:5174/remoteEntry.js` |
-| 3 | preview | dev | `http://localhost:5173` | `http://localhost:4174/remoteEntry.js` |
-| 4 | preview | preview | `http://localhost:5173` | `http://localhost:5174/remoteEntry.js` |
+| 3 | preview | preview | `http://localhost:5173` | `http://localhost:5174/remoteEntry.js` |
+
+> **Host(preview) + Remotes(dev) não é suportado.** O Vite dev server injeta código HMR via `@vitejs/plugin-react` (JSX preamble) que um host em preview mode não consegue processar, causando `"@vitejs/plugin-react can't detect preamble"` nos remotes. Esta é uma limitação inerente — remotes em dev mode emitem código com HMR hooks que não existem no contexto de um host built/preview.
 
 ### Cenário multi-repo / CI
 
@@ -87,7 +88,7 @@ Cada config de playwright define webServers diferentes.
 
 - Zero alterações ao código de produção
 - Funciona em qualquer cenário (monorepo, multi-repo, CI, staging, CDN)
-- Um único spec reutilizado pelas 4 combinações
+- Um único spec reutilizado pelas 3 combinações suportadas
 - Env vars como interface — simples de configurar em qualquer CI
 
 ### Negativos

@@ -8,11 +8,14 @@ import { expect, test } from './fixtures';
  * The route intercept on /api/mfes ensures the browser fetches
  * remoteEntry.js from whatever ports are configured via env vars.
  *
- * Combinations (controlled by env vars + which servers are running):
- *   1. Host(dev)     + Remotes(dev)      — E2E_HOST_PORT=4173, default remote ports
- *   2. Host(dev)     + Remotes(preview)  — E2E_HOST_PORT=4173, E2E_*_PORT=517x
- *   3. Host(preview) + Remotes(dev)      — E2E_HOST_PORT=5173, default remote ports
- *   4. Host(preview) + Remotes(preview)  — E2E_HOST_PORT=5173, E2E_*_PORT=517x
+ * Supported combinations (controlled by env vars + which servers are running):
+ *   1. Host(dev)     + Remotes(dev)      — E2E_HOST_URL=4173, default remote ports
+ *   2. Host(dev)     + Remotes(preview)  — E2E_HOST_URL=4173, E2E_*_ENTRY=517x
+ *   3. Host(preview) + Remotes(preview)  — E2E_HOST_URL=5173, E2E_*_ENTRY=517x
+ *
+ * Note: Host(preview) + Remotes(dev) is NOT supported — the Vite dev server
+ * injects HMR preamble code (@vitejs/plugin-react) that a preview host cannot
+ * process, causing "can't detect preamble" errors in the remotes.
  */
 
 test.describe('Smoke — Full Site Navigation', () => {
