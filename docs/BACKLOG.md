@@ -22,6 +22,10 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 
 - [ ] Rever ADRs — remover referências a TODOs de implementação e focar no racional da decisão. Quem lê os ADRs precisa de perceber as questões que se colocaram e porquê se tomou determinada decisão, não os detalhes de implementação por iteração. As secções de contexto, questões e alternativas consideradas são o valor — manter e reforçar.
 
+## Preview Mode
+
+- [ ] **Preview mode não renderiza o app** — `vite preview` serve o HTML mas o React não monta. Provável causa: `/api/mfes` devolve index.html (SPA fallback) em vez de JSON, e o `hostInit` script do MF ou o federation runtime falha silenciosamente. Bloqueia os smoke tests das combinações 2, 3 e 4. Investigar root cause.
+
 ## Console Errors (E2E Fixture Filters)
 
 Filtros temporários adicionados ao `e2e/fixtures.ts` que devem ser resolvidos:

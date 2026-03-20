@@ -216,3 +216,4 @@ O primeiro dígito distingue o ambiente. O offset identifica a app (173 = host, 
 | [008](adr/ADR-008-right-bar-panel-url-sync.md) | Right-Bar URL Sync | Zustand master, URL espelho, namespace panel.* |
 | [009](adr/ADR-009-cross-mfe-selections-mailbox.md) | Cross-MFE Selections | Mailbox pattern para comunicação cross-MFE |
 | [010](adr/ADR-010-dynamic-slice-registry-mfe-contracts.md) | Dynamic Slice Registry | Registry dinâmico de slices + contracts por domínio MFE |
+| [011](adr/ADR-011-smoke-tests-route-interception.md) | Smoke Tests Route Interception | Playwright intercepta /api/mfes via env vars — monorepo, multi-repo e CI |
