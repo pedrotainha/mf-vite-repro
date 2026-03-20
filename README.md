@@ -52,6 +52,7 @@ Este repositório segue o plano de migração documentado em `../POC_MFE_csr/doc
 
 ## Documentação
 
+- [Onboarding](docs/ONBOARDING.md) — guia para quem chega ao projecto pela primeira vez
 - [Architecture](docs/ARCHITECTURE.md)
 - [Features](docs/FEATURES.md)
 - [ADRs](docs/adr/)
