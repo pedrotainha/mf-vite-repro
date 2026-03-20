@@ -6,6 +6,7 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 
 - [ ] Regra ESLint para detectar `setSearchParams()` destrutivo (sem callback/prev) — ver ADR-008
 - [ ] `VITE_ENABLE_STORE_DEVTOOLS` — no futuro poderia controlar também React Query DevTools
+- [ ] **Browser targets** — definir `browserslist` (ou equivalente em `build.target` do Vite) em todos os projectos para garantir que o output de build está alinhado com os browsers suportados. Sem target explícito, o Vite usa defaults que podem incluir syntax demasiado moderna ou gerar polyfills desnecessários
 
 ## Packages
 
@@ -22,10 +23,6 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 ## Documentação
 
 - [ ] Rever ADRs — remover referências a TODOs de implementação e focar no racional da decisão. Quem lê os ADRs precisa de perceber as questões que se colocaram e porquê se tomou determinada decisão, não os detalhes de implementação por iteração. As secções de contexto, questões e alternativas consideradas são o valor — manter e reforçar.
-
-## Preview Mode
-
-- [ ] **Preview mode não renderiza o app** — `vite preview` serve o HTML mas o React não monta. Provável causa: `/api/mfes` devolve index.html (SPA fallback) em vez de JSON, e o `hostInit` script do MF ou o federation runtime falha silenciosamente. Bloqueia os smoke tests das combinações 2, 3 e 4. Investigar root cause.
 
 ## Console Errors (E2E Fixture Filters)
 
