@@ -122,6 +122,34 @@ O fixture `consoleErrors` é `auto: true` — corre automaticamente no fim de ca
 - O objetivo é sempre resolver o root cause em vez de filtrar.
 - Se um erro de consola aparecer nos testes, investigar a causa antes de adicionar filtro.
 
+## CSS & Federation — Regras de Validação
+
+Estas regras aplicam-se sempre que se cria uma nova app, se adiciona um UI package, ou se altera a configuração de federation.
+
+### @source directives (Tailwind v4)
+
+Cada app que importa `@-label-/ui-internal-*` (core, datatable, charts) **deve** ter o `@source` correspondente nos seus ficheiros CSS (`index.css` e `components.css`). Sem isto, as classes Tailwind usadas por esses packages não são geradas no build output e os componentes ficam sem estilo.
+
+```css
+@source "../node_modules/@-label-/ui-internal-core/src";
+@source "../node_modules/@-label-/ui-internal-datatable/src";
+```
+
+**Regra:** se o `package.json` de uma app tem `@-label-/ui-internal-X` nas dependencies, os CSS dessa app devem ter `@source` para esse package.
+
+### CSS duplicação em federation mode
+
+O host carrega o DS completo (`globals.css`). Os remotes em federation mode usam apenas `components.css` (tokens + utilities locais). Nunca importar `globals.css` num componente exposto via federation — isso duplica o DS inteiro no browser.
+
+- `index.css` → `globals.css` (full DS) — **standalone** (dev / preview)
+- `components.css` → `theme.css` (só tokens) — **federation** (dentro do host)
+
+### generateShared + singletonPrefixes
+
+O `federation-config` tem `singletonPrefixes: ["@-label-/ui-"]` por default. Isto garante que packages de UI são singleton com `requiredVersion: "*"` — o remote aceita sempre a versão do host, evitando instâncias duplicadas (ex: Sonner toast state split).
+
+**Nunca remover** `@-label-/ui-` dos singletonPrefixes. Se um novo prefix precisar de singleton, adicioná-lo ao array.
+
 ## Versionamento & Publish
 
 Segue o workflow de changesets. Comando de publish: `pnpm publish:packages`.
