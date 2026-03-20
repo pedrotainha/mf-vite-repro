@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@module-federation/vite':
-    hash: 41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb
+    hash: 0506c78decf8eaca002a8a6b0103f2f144b2e90e6aace04845ae2ab07f113d4d
     path: patches/@module-federation__vite.patch
 
 importers:
@@ -73,7 +73,7 @@ importers:
         version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
       '@module-federation/vite':
         specifier: 1.13.1
-        version: 1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
+        version: 1.13.1(patch_hash=0506c78decf8eaca002a8a6b0103f2f144b2e90e6aace04845ae2ab07f113d4d)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: 4.2.2
         version: 4.2.2(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
@@ -155,7 +155,7 @@ importers:
         version: 4.11.1(playwright-core@1.58.2)
       '@module-federation/vite':
         specifier: 1.13.1
-        version: 1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
+        version: 1.13.1(patch_hash=0506c78decf8eaca002a8a6b0103f2f144b2e90e6aace04845ae2ab07f113d4d)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: 4.2.2
         version: 4.2.2(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
@@ -210,7 +210,7 @@ importers:
         version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
       '@module-federation/vite':
         specifier: 1.13.1
-        version: 1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
+        version: 1.13.1(patch_hash=0506c78decf8eaca002a8a6b0103f2f144b2e90e6aace04845ae2ab07f113d4d)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: 4.2.2
         version: 4.2.2(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
@@ -265,7 +265,7 @@ importers:
         version: 2.3.1(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
       '@module-federation/vite':
         specifier: 1.13.1
-        version: 1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
+        version: 1.13.1(patch_hash=0506c78decf8eaca002a8a6b0103f2f144b2e90e6aace04845ae2ab07f113d4d)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: 4.2.2
         version: 4.2.2(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))
@@ -5110,7 +5110,7 @@ snapshots:
       fs-extra: 9.1.0
       resolve: 1.22.8
 
-  '@module-federation/vite@1.13.1(patch_hash=41f987fb09b13ba762d47a36adf5d52efe264fd33d3ce084f0186cdd7f4b06bb)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))':
+  '@module-federation/vite@1.13.1(patch_hash=0506c78decf8eaca002a8a6b0103f2f144b2e90e6aace04845ae2ab07f113d4d)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(jiti@2.6.1)(yaml@2.8.2))':
     dependencies:
       '@module-federation/dts-plugin': 2.2.2(typescript@5.9.3)
       '@module-federation/runtime': 2.2.2
