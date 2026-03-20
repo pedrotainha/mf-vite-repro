@@ -1,4 +1,4 @@
-# TODO Backlog
+# Backlog
 
 Items descobertos durante implementação que ficam para futuros TODOs.
 
@@ -17,6 +17,10 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 
 - [ ] Auth/RBAC/RoleSwitcher — quando houver requisitos detalhados
 - [ ] Telemetry/trackEvent — quando decidir APM RUM
+
+## Documentação
+
+- [ ] Rever ADRs — remover referências a TODOs de implementação e focar no racional da decisão. Quem lê os ADRs precisa de perceber as questões que se colocaram e porquê se tomou determinada decisão, não os detalhes de implementação por iteração. As secções de contexto, questões e alternativas consideradas são o valor — manter e reforçar.
 
 ## Console Errors (E2E Fixture Filters)
 
