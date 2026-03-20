@@ -23,6 +23,7 @@ Items descobertos durante implementação que ficam para futuros TODOs.
 ## Documentação
 
 - [ ] Rever ADRs — remover referências a TODOs de implementação e focar no racional da decisão. Quem lê os ADRs precisa de perceber as questões que se colocaram e porquê se tomou determinada decisão, não os detalhes de implementação por iteração. As secções de contexto, questões e alternativas consideradas são o valor — manter e reforçar.
+- [ ] **Diagrama shell/host vs MFE standalone** — criar diagrama (Mermaid) que explique: (1) o que o host/shell carrega (providers, router, shared deps, layout) e o que os MFEs **não** precisam de carregar quando correm dentro do host; (2) quando um MFE arranca em modo standalone, o que carrega por si próprio; (3) dois modos de standalone — `dev` (Vite dev server) vs `build + preview` (bundle estático servido localmente). O objetivo é que qualquer developer consiga perceber a diferença de responsabilidades entre host e remote em cada cenário
 
 ## Console Errors (E2E Fixture Filters)
 
