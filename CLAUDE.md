@@ -85,6 +85,16 @@ Ficheiros de contexto disponíveis em `../POC_MFE_csr/docs/`:
 - **Sheet overlay bloqueia clicks:** quando um `Sheet` (shadcn) está aberto, o overlay `data-state="open"` intercepts pointer events. Em E2E tests, usar `page.keyboard.press('Escape')` em vez de clicar no overlay, ou usar programmatic navigation.
 - **`getByText` strict mode com Sheet:** o `SheetTitle` e `SheetDescription` (sr-only) ambos contêm o mesmo texto. Usar `getByRole('heading', { name: '...' }).first()` para selectores mais específicos.
 
+## Gotchas (descobertos no ADR-010)
+
+- **`@-label-/contracts` no federation ignore:** contracts agora exporta runtime values (`FLEET_SLICE`, etc.), não apenas types. O federation plugin gera wrappers `loadShare` virtuais que não conseguem re-exportar esses valores. Solução: adicionar `@-label-/contracts` ao `ignore` do `generateShared` em todas as apps — o contracts é bundled por app, não shared via federation.
+- **`@-label-/shell-core` e `@-label-/shell-hooks` no ignore:** packages de infra de state management devem ser consumidos via workspace, não partilhados via federation (mesmo pattern do `@-label-/mfe-loader`).
+- **`zustand/vanilla` vs `zustand`:** o shell-core usa `createStore` de `zustand/vanilla` (sem React). O `create` de `zustand` gera hooks React — usar apenas no shell-hooks layer.
+- **`SliceFactory` genérico com `any`:** as slice factories usam `any` no `set`/`get` porque o tipo composto da store é dinâmico. O type-safety está no consumo (selectores tipados), não na factory.
+- **`window.__shellStore__` dev-only:** exposto via `import.meta.env.DEV` para E2E testing seam. Vite tree-shakes em prod. Testes E2E de dynamic slices só correm em dev mode (playwright.config.ts), não em smoke tests.
+- **`page.evaluate` não serializa functions:** `navigateCallback` é uma function — `JSON.stringify` retorna `undefined`. Validar tipo no browser context com `typeof`.
+- **Lint: naming convention vs underscore prefix:** o lint rule `@typescript-eslint/naming-convention` não permite `_slices`/`_sliceRefs`. Usar `dynamicSlices`/`sliceRefs` como nomes da API interna.
+
 ## E2E: Shared Console Error Fixture
 
 Todos os testes e2e DEVEM importar `test` e `expect` de `./fixtures` em vez de `@playwright/test`:

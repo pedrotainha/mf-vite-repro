@@ -29,7 +29,7 @@ Geridas por `@-label-/federation-config` (`generateShared`):
 
 - **Singletons:** react, react-dom, zustand (sempre partilhados, uma instância)
 - **Singleton prefixes:** `@-label-/ui-*` (requiredVersion: "*" — remote aceita sempre a versão do host)
-- **Ignore:** `@module-federation/runtime`, `@module-federation/vite`, `@-label-/mfe-loader`, `@types/*`
+- **Ignore:** `@module-federation/runtime`, `@module-federation/vite`, `@-label-/mfe-loader`, `@-label-/contracts`, `@-label-/shell-core`, `@-label-/shell-hooks`, `@types/*`
 - **Traversal:** depth-first em node_modules (maxDepth configurable), symlink-aware para pnpm
 
 ### MFE Config
@@ -111,12 +111,35 @@ Detalhes em [ADR-005](adr/ADR-005-file-organization-convention.md)
 
 ## State Management
 
+### Package Architecture
+
+A store está dividida em 3 packages:
+
+- **`@-label-/shell-core`** (`zustand/vanilla`) — store factory, dynamic slice registry, host slice factories, createShellApi. Zero React.
+- **`@-label-/shell-hooks`** (React) — `useShellStore`, `ShellApiProvider`, `useShellApi`, `useSlice`. React bindings sobre o vanilla store.
+- **`@-label-/contracts`** — tipos puros (`ShellApi`, `SliceDescriptor`) + domain contracts por MFE (`FleetSlice`, `FLEET_SLICE`, etc.)
+
 ### Zustand Shell Store
 
-O host mantém um Zustand store com 2 slices:
+O host cria a store via `createShellStore()` com slices pluggáveis:
 
-- **RightBarSlice** — stack LIFO de panels (`openPanel` push, `closePanel` pop, `updatePanelPayload`)
-- **SelectionsSlice** — mailbox pattern para comunicação cross-MFE (`vehicleSelection`)
+```typescript
+const shellStore = createShellStore({
+  slices: { rightBar: rightBarSlice, selections: selectionsSlice, navigation: navigationSlice },
+  devtools: { enabled: config.ENABLE_STORE_DEVTOOLS === 'true', name: 'shell-store' },
+});
+```
+
+**Host slices** (criados no boot):
+- **rightBarSlice** — stack LIFO de panels (`openPanel` push, `closePanel` pop, `updatePanelPayload`)
+- **selectionsSlice** — mailbox pattern para comunicação cross-MFE (`vehicleSelection`)
+- **navigationSlice** — callback para `react-router` `navigate()`
+
+**Dynamic slice registry** (runtime):
+- MFEs registam slices via `shellApi.registerSlice(descriptor)` ao montar
+- Reference counting para slices partilhados
+- `shellApi.unregisterSlice(name)` no cleanup (unmount)
+- `shellApi.onSliceChange(name, listener)` para subscrição cross-MFE (mailbox pattern)
 
 Middleware: `devtools` (toggle via `VITE_ENABLE_STORE_DEVTOOLS`) + `subscribeWithSelector`.
 
@@ -126,20 +149,29 @@ Interface estável passada como prop `shellApi?: ShellApi` a cada remote:
 
 ```typescript
 interface ShellApi {
+  // Right-bar
   openPanel(request: RightBarRequest): void;
   closePanel(): void;
   updatePanelPayload(payload: Record<string, unknown>): void;
+  // Selections
   completeVehicleSelection(vehicle: VehicleRef): void;
   clearVehicleSelection(): void;
   getVehicleSelection(): VehicleRef | null;
   onVehicleSelectionChange(listener: (vehicle: VehicleRef | null) => void): () => void;
+  // Navigation
   navigate(path: string): void;
+  // Dynamic slice registry
+  registerSlice<T>(descriptor: SliceDescriptor<T>): void;
+  unregisterSlice(name: string): void;
+  getSliceState<T>(name: string): T | undefined;
+  setSliceState<T>(name: string, partial: Partial<T>): void;
+  onSliceChange<T>(name: string, listener: (state: T) => void): () => void;
 }
 ```
 
-Criada via `createShellApi()` factory com `useShellStore.getState()` — referência estável via `useMemo`.
+Criada via `createShellApi(store)` factory sobre o vanilla store.
 
-Detalhes em [ADR-007](adr/ADR-007-zustand-shell-api.md).
+Detalhes em [ADR-007](adr/ADR-007-zustand-shell-api.md) e [ADR-010](adr/ADR-010-dynamic-slice-registry-mfe-contracts.md).
 
 ## Right-Bar Panel System
 
@@ -183,9 +215,11 @@ O primeiro dígito distingue o ambiente. O offset identifica a app (173 = host, 
 
 | Package | Purpose | Status |
 |---------|---------|--------|
-| @-label-/contracts | Tipos partilhados (MfeConfigEntry, ShellApi) | TODO-02 |
+| @-label-/contracts | Tipos partilhados (ShellApi, SliceDescriptor, domain contracts) | TODO-02 + ADR-010 |
 | @-label-/federation-config | generateShared helper | TODO-02 |
 | @-label-/mfe-loader | initFederation, registerMfeRemotes, lazyRemoteComponent | TODO-02 |
+| @-label-/shell-core | Shell store factory (zustand/vanilla), dynamic slice registry, slice factories | ADR-010 |
+| @-label-/shell-hooks | React bindings — useShellStore, ShellApiProvider, useShellApi, useSlice | ADR-010 |
 | @-label-/vite-plugin-mfe-config-api | Serve mfe.config.json como /api/mfes | TODO-02 |
 | @-label-/utils | Utilitários partilhados | TODO-01 |
 

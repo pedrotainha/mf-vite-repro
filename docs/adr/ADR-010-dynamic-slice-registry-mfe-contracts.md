@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposta (implementação faseada — infra no POC, contracts por repo quando houver multi-repo)
+Aceite (implementado — infra no POC, contracts por repo quando houver multi-repo)
 
 ## Contexto
 

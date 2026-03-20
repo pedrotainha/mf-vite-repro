@@ -51,3 +51,21 @@ Decisões técnicas, arquitectura e patterns implementados neste POC.
 - **ADR-007**: Zustand Shell API — props over Context em federation
 - **ADR-008**: Right-bar panel URL sync — Zustand master, URL espelho, namespace `panel.*`
 - **ADR-009**: Cross-MFE selections — mailbox pattern para comunicação entre remotes
+
+## ADR-010: Dynamic Slice Registry + MFE Contracts
+
+- **`@-label-/shell-core`** — package `zustand/vanilla` (zero React) com store factory, dynamic slice registry (ref-counting), pluggable host slice factories (rightBar, selections, navigation), `createShellApi()` factory, `onSliceChange()` subscription
+- **`@-label-/shell-hooks`** — React bindings: `useShellStore`, `ShellApiProvider` (aceita store como prop), `useShellApi`, `useSlice`
+- **Domain contracts** — `FleetSlice`/`FLEET_SLICE`, `RentalsSlice`/`RENTALS_SLICE`, `MaintenanceSlice`/`MAINTENANCE_SLICE` em `@-label-/contracts/domains`
+- **`SliceDescriptor<T>`** — constantes tipadas (`as const satisfies`) para type-safety nos nomes de slices
+- **Dynamic ShellApi** — `registerSlice`, `unregisterSlice`, `getSliceState`, `setSliceState`, `onSliceChange` adicionados ao `ShellApi`
+- **MFE lifecycle** — Fleet, Rentals e Maintenance registam slices no mount e limpam no unmount
+- **Cross-MFE subscription** — Rentals subscreve mudanças no slice do Fleet (demonstração do mailbox pattern com dynamic slices)
+- **`@-label-/contracts` no federation ignore** — contracts agora tem runtime exports (slice descriptors), deve ser bundled por app e não partilhado via federation
+- **`window.__shellStore__`** — exposto em dev mode apenas para E2E testing seam (tree-shaken em prod)
+- **E2E tests** (6 novos, 34 total):
+  - Slice registration: Fleet, Rentals, Maintenance registam slices ao montar (3)
+  - Slice cleanup: Fleet slice removido ao navegar para outro MFE (1)
+  - Cross-MFE: Rentals subscreve slice do Fleet antes do Fleet montar (1)
+  - Host slices: rightBar, selections, navigation mantêm-se funcionais (1)
+- **ADR-010**: Dynamic Slice Registry + MFE Contracts por Domínio
