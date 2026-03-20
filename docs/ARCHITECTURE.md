@@ -163,6 +163,13 @@ Detalhes em [ADR-009](adr/ADR-009-cross-mfe-selections-mailbox.md).
 
 ## Apps
 
+### Port Convention
+
+- **`4xxx`** — dev mode (`vite dev`)
+- **`5xxx`** — preview/prod mode (`vite preview` após build)
+
+O primeiro dígito distingue o ambiente. O offset identifica a app (173 = host, 174 = fleet, etc.). Esta convenção é obrigatória para todas as apps — incluindo futuras.
+
 | App | Role | Dev Port | Preview Port | Status |
 |-----|------|----------|-------------|--------|
 | host | Shell/consumer | 4173 | 5173 | TODO-03 |
