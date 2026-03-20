@@ -84,6 +84,9 @@
     ],
     "patchedDependencies": {
       "@module-federation/vite": "patches/@module-federation__vite.patch"
+    },
+    "overrides": {
+      "flatted": "3.4.2"
     }
   }
 }
