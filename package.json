@@ -16,8 +16,9 @@
     "build:rentals": "pnpm --filter @-label-/rentals build",
     "build:maintenance": "pnpm --filter @-label-/maintenance build",
     "build:host": "pnpm --filter @-label-/host build",
+    "build:packages": "pnpm --filter './packages/*' --filter './clients/*' run build",
     "build:remotes": "pnpm run build:fleet && pnpm run build:rentals && pnpm run build:maintenance",
-    "build:all": "pnpm run build:remotes && pnpm run build:host",
+    "build:all": "pnpm run build:packages && pnpm run build:remotes && pnpm run build:host",
     "preview:fleet": "pnpm --filter @-label-/fleet preview",
     "preview:rentals": "pnpm --filter @-label-/rentals preview",
     "preview:maintenance": "pnpm --filter @-label-/maintenance preview",
@@ -73,6 +74,7 @@
     "oxlint": "1.56.0",
     "prettier": "3.8.1",
     "simple-git-hooks": "2.13.1",
+    "tsup": "8.5.1",
     "typescript": "5.9.3"
   },
   "pnpm": {

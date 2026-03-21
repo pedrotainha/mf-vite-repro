@@ -24,14 +24,7 @@ export default defineConfig({
       },
       shared: generateShared({
         cwd: __cwd,
-        ignore: [
-          '@-label-/contracts',
-          '@-label-/mfe-loader',
-          '@-label-/shell-hooks',
-          '@module-federation/runtime',
-          '@module-federation/vite',
-          'msw',
-        ],
+        ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
       }),
     }),
   ],
