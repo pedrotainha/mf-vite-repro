@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@-label-/federation-config": "workspace:*",
-    "@-label-/lint-config": "latest",
+    "@-label-/lint-config": "2.3.2",
     "@module-federation/vite": "1.13.1",
     "@tailwindcss/vite": "4.2.2",
     "@types/react": "19.2.14",

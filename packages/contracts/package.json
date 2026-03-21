@@ -11,7 +11,7 @@
     }
   },
   "devDependencies": {
-    "@-label-/lint-config": "latest",
+    "@-label-/lint-config": "2.3.2",
     "eslint": "9.39.2",
     "oxlint": "1.56.0",
     "prettier": "3.8.1",

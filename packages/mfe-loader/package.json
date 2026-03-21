@@ -16,7 +16,7 @@
     "react": "19.2.4"
   },
   "devDependencies": {
-    "@-label-/lint-config": "latest",
+    "@-label-/lint-config": "2.3.2",
     "@types/react": "19.2.14",
     "eslint": "9.39.2",
     "oxlint": "1.56.0",
