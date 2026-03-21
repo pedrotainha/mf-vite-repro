@@ -41,6 +41,7 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
+  Toaster,
 } from '@-label-/ui-internal-core';
 
 const iconMap: Record<string, LucideIcon> = {
@@ -241,6 +242,7 @@ const Layout = ({ mfes }: { mfes: MfeConfigEntry[] }): JSX.Element => {
         </main>
       </SidebarInset>
       <RightBar configs={mfes} />
+      <Toaster closeButton richColors />
     </SidebarProvider>
   );
 };

@@ -32,6 +32,7 @@ export default defineConfig({
           '@-label-/ui-internal-core',
           '@module-federation/runtime',
           '@module-federation/vite',
+          'msw',
         ],
       }),
     }),
