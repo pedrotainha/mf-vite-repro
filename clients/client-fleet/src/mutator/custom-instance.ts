@@ -2,8 +2,8 @@
 // Do NOT edit — it will be overwritten on regeneration.
 // Configure the client at runtime via configureClient() in your app.
 
-import Axios from 'axios';
-import type { AxiosError, AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
+import Axios from "axios";
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 
 let instance: AxiosInstance = Axios.create();
 
@@ -13,9 +13,7 @@ export type RequestInterceptor = [
 ];
 
 export type ResponseInterceptor = [
-  onFulfilled?:
-    | ((response: import('axios').AxiosResponse) => import('axios').AxiosResponse | Promise<import('axios').AxiosResponse>)
-    | null,
+  onFulfilled?: ((response: import("axios").AxiosResponse) => import("axios").AxiosResponse | Promise<import("axios").AxiosResponse>) | null,
   onRejected?: ((error: unknown) => unknown) | null,
 ];
 
@@ -47,7 +45,10 @@ export function configureClient(config: ClientConfig): void {
 
 type LooseRequestConfig = Omit<AxiosRequestConfig, 'signal'> & { signal?: AbortSignal | undefined };
 
-export const customInstance = <T>(config: LooseRequestConfig, options?: AxiosRequestConfig): Promise<T> => {
+export const customInstance = <T>(
+  config: LooseRequestConfig,
+  options?: AxiosRequestConfig,
+): Promise<T> => {
   const { signal, ...rest } = config;
   return instance({ ...rest, ...(signal != null ? { signal } : {}), ...options }).then(({ data }) => data);
 };
