@@ -1,0 +1,11 @@
+# Piso minimo realista — React 19 + Vite 8 + ESM + Module Federation
+# Browsers abaixo disto NAO carregam a app (ESM com <script type="module">)
+# Used by Tailwind CSS (Lightning CSS) for CSS output targeting
+# Vite build.target is kept in sync manually in vite.config.ts
+
+chrome >= 80
+edge >= 80
+firefox >= 80
+safari >= 14
+samsung >= 13
+opera >= 67

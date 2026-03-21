@@ -78,5 +78,49 @@ export default {
           }));
       },
     },
+    {
+      id: 'browserslistrc-required-for-apps',
+      description:
+        'Every app/MFE under apps/ must have a .browserslistrc file so that Tailwind CSS (Lightning CSS) targets the correct browsers.',
+      severity: 'warning',
+      check(_addedLines, _ctx, allFiles) {
+        const violations = [];
+        const appDirs = new Set();
+
+        for (const f of allFiles ?? []) {
+          if (f.startsWith('apps/') && f.endsWith('/package.json')) {
+            appDirs.add(dirname(f));
+          }
+        }
+
+        for (const appDir of appDirs) {
+          const pkgPath = resolve(appDir, 'package.json');
+          if (!existsSync(pkgPath)) continue;
+
+          let pkg;
+          try {
+            pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
+          } catch {
+            continue;
+          }
+
+          if (!pkg.name || (!pkg.name.includes('app-') && !pkg.name.includes('mfe-'))) {
+            const viteConfig = join(appDir, 'vite.config.ts');
+            if (!existsSync(viteConfig)) continue;
+          }
+
+          const browserslistPath = join(appDir, '.browserslistrc');
+          if (!existsSync(browserslistPath)) {
+            violations.push({
+              file: pkgPath,
+              line: 1,
+              message: `Missing .browserslistrc in ${appDir}. Every app/MFE must define browser targets for CSS output.`,
+            });
+          }
+        }
+
+        return violations;
+      },
+    },
   ],
 };
