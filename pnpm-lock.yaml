@@ -58,18 +58,45 @@ importers:
 
   apps/fleet:
     dependencies:
+      '@-label-/client-fleet':
+        specifier: workspace:*
+        version: link:../../clients/client-fleet
       '@-label-/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@-label-/shell-hooks':
+        specifier: workspace:*
+        version: link:../../packages/shell-hooks
+      '@-label-/ui-internal-core':
+        specifier: 0.3.33
+        version: 0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+      '@-label-/ui-internal-datatable':
+        specifier: 0.3.33
+        version: 0.3.33(@-label-/ui-internal-core@0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@module-federation/runtime':
         specifier: 2.2.3
         version: 2.2.3
+      '@tanstack/react-query':
+        specifier: 5.91.2
+        version: 5.91.2(react@19.2.4)
+      axios:
+        specifier: 1.13.6
+        version: 1.13.6
+      lucide-react:
+        specifier: 0.577.0
+        version: 0.577.0(react@19.2.4)
       react:
         specifier: 19.2.4
         version: 19.2.4
       react-dom:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
+      react-router:
+        specifier: 7.13.1
+        version: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      zod:
+        specifier: 4.3.6
+        version: 4.3.6
       zustand:
         specifier: 5.0.12
         version: 5.0.12(@types/react@19.2.14)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))
@@ -98,6 +125,9 @@ importers:
       eslint:
         specifier: 9.39.2
         version: 9.39.2(jiti@2.6.1)
+      msw:
+        specifier: 2.12.13
+        version: 2.12.13(@types/node@24.12.0)(typescript@5.9.3)
       oxlint:
         specifier: 1.56.0
         version: 1.56.0
@@ -186,6 +216,9 @@ importers:
       eslint:
         specifier: 9.39.2
         version: 9.39.2(jiti@2.6.1)
+      msw:
+        specifier: 2.12.13
+        version: 2.12.13(@types/node@24.12.0)(typescript@5.9.3)
       oxlint:
         specifier: 1.56.0
         version: 1.56.0
@@ -553,6 +586,13 @@ packages:
       react: 19.2.4
       react-dom: 19.2.4
       recharts: 2.15.4
+
+  '@-label-/ui-internal-datatable@0.3.33':
+    resolution: {integrity: sha512-dfcgxuks4tRzAJaqU6C/vXOjCZiFaFdvou9+zY93IB4VeltbxJsnvBF6k6aVVwqqF6Q/kwuB3TFxX/ifbBcKjw==}
+    peerDependencies:
+      '@-label-/ui-internal-core': 0.3.33
+      react: 19.2.4
+      react-dom: 19.2.4
 
   '@axe-core/playwright@4.11.1':
     resolution: {integrity: sha512-mKEfoUIB1MkVTht0BGZFXtSAEKXMJoDkyV5YZ9jbBmZCcWDz71tegNsdTkIN8zc/yMi5Gm2kx7Z5YQ9PfWNAWw==}
@@ -2222,6 +2262,17 @@ packages:
     resolution: {integrity: sha512-GClLPzbM57iFXv+FlvOUL56XVe00PxuTaVEyj1zAObhRiKF008J5vedmaq7O6ehs+VmPHe8+PUQhMuEyv8d9wQ==}
     peerDependencies:
       react: ^18 || ^19
+
+  '@tanstack/react-table@8.21.3':
+    resolution: {integrity: sha512-5nNMTSETP4ykGegmVkhjcS8tTLW6Vl4axfEGQN3v0zdHYbK4UfoqfPChclTrJ4EoK9QynqAu9oUf8VEmrpZ5Ww==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+
+  '@tanstack/table-core@8.21.3':
+    resolution: {integrity: sha512-ldZXEhOBb8Is7xLs01fR3YEc3DERiz5silj8tnGkFZytt1abEvl/GhUmCE0PMLaMPTa3Jk4HbKmRlHmu+gCftg==}
+    engines: {node: '>=12'}
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -5384,6 +5435,14 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
 
+  '@-label-/ui-internal-datatable@0.3.33(@-label-/ui-internal-core@0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@-label-/ui-internal-core': 0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+      '@tanstack/react-table': 8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      lucide-react: 0.577.0(react@19.2.4)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
   '@axe-core/playwright@4.11.1(playwright-core@1.58.2)':
     dependencies:
       axe-core: 4.11.1
@@ -7201,6 +7260,14 @@ snapshots:
     dependencies:
       '@tanstack/query-core': 5.91.2
       react: 19.2.4
+
+  '@tanstack/react-table@8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@tanstack/table-core': 8.21.3
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
+  '@tanstack/table-core@8.21.3': {}
 
   '@tybys/wasm-util@0.10.1':
     dependencies:

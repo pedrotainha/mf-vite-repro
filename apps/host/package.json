@@ -41,6 +41,7 @@
     "@-label-/vite-plugin-mfe-config-api": "workspace:*",
     "@axe-core/playwright": "^4.11.1",
     "@module-federation/vite": "1.13.1",
+    "msw": "2.12.13",
     "@tailwindcss/vite": "4.2.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
