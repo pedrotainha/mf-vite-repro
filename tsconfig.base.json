@@ -24,7 +24,8 @@
       "@-label-/shell-hooks": ["./packages/shell-hooks/src/index.ts"],
       "@-label-/vite-plugin-config-chunk": ["./packages/vite-plugin-config-chunk/src/index.ts"],
       "@-label-/vite-plugin-mfe-config-api": ["./packages/vite-plugin-mfe-config-api/src/index.ts"],
-      "@-label-/msw-mocks": ["./packages/msw-mocks/src/index.ts"]
+      "@-label-/client-fleet": ["./clients/client-fleet/src/index.ts"],
+      "@-label-/client-fleet/mocks": ["./clients/client-fleet/src/mocks/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]

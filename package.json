@@ -61,13 +61,14 @@
     "commit-msg": "npx commit-lint $1"
   },
   "devDependencies": {
+    "@-label-/api-codegen": "2.0.0",
     "@-label-/changeset-publish-fix": "latest",
     "@-label-/commit-lint": "latest",
     "@-label-/lint-config": "latest",
     "@axe-core/playwright": "^4.11.1",
     "@changesets/cli": "2.30.0",
     "@playwright/test": "1.58.2",
-    "eslint": "9.39.2",
+    "eslint": "9.39.4",
     "lint-staged": "16.4.0",
     "oxlint": "1.56.0",
     "prettier": "3.8.1",

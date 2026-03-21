@@ -1,0 +1,299 @@
+openapi: '3.1.0'
+info:
+  title: Fleet API
+  version: 1.0.0
+  description: Fleet vehicle management API
+
+paths:
+  /api/vehicles:
+    get:
+      operationId: listVehicles
+      summary: List vehicles with optional filters
+      parameters:
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/VehicleStatus'
+        - name: type
+          in: query
+          schema:
+            $ref: '#/components/schemas/VehicleType'
+        - name: search
+          in: query
+          schema:
+            type: string
+            example: Corsa
+      responses:
+        '200':
+          description: List of vehicles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+                example:
+                  - id: v-001
+                    plate: AA-01-BB
+                    model: Corsa
+                    brand: Opel
+                    type: car
+                    year: 2022
+                    status: available
+                    km: 34500
+                    lastServiceDate: '2025-11-15'
+                    notes: ''
+                  - id: v-002
+                    plate: CC-02-DD
+                    model: '208'
+                    brand: Peugeot
+                    type: car
+                    year: 2023
+                    status: rented
+                    km: 18200
+                    lastServiceDate: '2025-12-01'
+                    notes: ''
+                  - id: v-003
+                    plate: EE-03-FF
+                    model: Clio
+                    brand: Renault
+                    type: car
+                    year: 2021
+                    status: maintenance
+                    km: 62000
+                    lastServiceDate: '2025-10-20'
+                    notes: Brake pads replacement
+                  - id: v-004
+                    plate: GG-04-HH
+                    model: Duster
+                    brand: Dacia
+                    type: car
+                    year: 2023
+                    status: available
+                    km: 12800
+                    lastServiceDate: '2026-01-10'
+                    notes: ''
+                  - id: v-005
+                    plate: II-05-JJ
+                    model: PCX 125
+                    brand: Honda
+                    type: motorcycle
+                    year: 2024
+                    status: available
+                    km: 5600
+                    lastServiceDate: '2026-01-20'
+                    notes: ''
+                  - id: v-006
+                    plate: KK-06-LL
+                    model: Trafic
+                    brand: Renault
+                    type: van
+                    year: 2020
+                    status: blocked
+                    km: 95000
+                    lastServiceDate: '2025-09-01'
+                    notes: Insurance expired
+                  - id: v-007
+                    plate: MM-07-NN
+                    model: Yaris
+                    brand: Toyota
+                    type: car
+                    year: 2024
+                    status: available
+                    km: 8200
+                    lastServiceDate: '2026-02-01'
+                    notes: ''
+                  - id: v-008
+                    plate: OO-08-PP
+                    model: Nmax 125
+                    brand: Yamaha
+                    type: motorcycle
+                    year: 2023
+                    status: rented
+                    km: 11400
+                    lastServiceDate: '2025-12-15'
+                    notes: ''
+                  - id: v-009
+                    plate: QQ-09-RR
+                    model: Berlingo
+                    brand: Citroën
+                    type: van
+                    year: 2022
+                    status: available
+                    km: 42000
+                    lastServiceDate: '2025-11-20'
+                    notes: ''
+                  - id: v-010
+                    plate: SS-10-TT
+                    model: Ibiza
+                    brand: Seat
+                    type: car
+                    year: 2021
+                    status: available
+                    km: 55000
+                    lastServiceDate: '2025-10-01'
+                    notes: ''
+                  - id: v-011
+                    plate: UU-11-VV
+                    model: T-Cross
+                    brand: Volkswagen
+                    type: car
+                    year: 2023
+                    status: maintenance
+                    km: 28000
+                    lastServiceDate: '2026-02-10'
+                    notes: Oil change
+                  - id: v-012
+                    plate: WW-12-XX
+                    model: SH 125
+                    brand: Honda
+                    type: motorcycle
+                    year: 2022
+                    status: available
+                    km: 15600
+                    lastServiceDate: '2025-12-20'
+                    notes: ''
+
+  /api/vehicles/{id}:
+    get:
+      operationId: getVehicle
+      summary: Get a vehicle by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: v-001
+      responses:
+        '200':
+          description: Vehicle details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+              example:
+                id: v-001
+                plate: AA-01-BB
+                model: Corsa
+                brand: Opel
+                type: car
+                year: 2022
+                status: available
+                km: 34500
+                lastServiceDate: '2025-11-15'
+                notes: ''
+        '404':
+          description: Vehicle not found
+
+    patch:
+      operationId: patchVehicle
+      summary: Partially update a vehicle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: v-001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehiclePatch'
+      responses:
+        '200':
+          description: Updated vehicle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+              example:
+                id: v-001
+                plate: AA-01-BB
+                model: Corsa
+                brand: Opel
+                type: car
+                year: 2022
+                status: blocked
+                km: 34500
+                lastServiceDate: '2025-11-15'
+                notes: Status updated
+        '404':
+          description: Vehicle not found
+
+components:
+  schemas:
+    VehicleStatus:
+      type: string
+      enum:
+        - available
+        - rented
+        - maintenance
+        - blocked
+      example: available
+
+    VehicleType:
+      type: string
+      enum:
+        - car
+        - motorcycle
+        - van
+      example: car
+
+    Vehicle:
+      type: object
+      required:
+        - id
+        - plate
+        - model
+        - brand
+        - type
+        - year
+        - status
+        - km
+        - lastServiceDate
+        - notes
+      properties:
+        id:
+          type: string
+          example: v-001
+        plate:
+          type: string
+          example: AA-01-BB
+        model:
+          type: string
+          example: Corsa
+        brand:
+          type: string
+          example: Opel
+        type:
+          $ref: '#/components/schemas/VehicleType'
+        year:
+          type: integer
+          example: 2022
+        status:
+          $ref: '#/components/schemas/VehicleStatus'
+        km:
+          type: integer
+          example: 34500
+        lastServiceDate:
+          type: string
+          format: date
+          example: '2025-11-15'
+        notes:
+          type: string
+          example: ''
+
+    VehiclePatch:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/VehicleStatus'
+        notes:
+          type: string
+          example: Status updated
+        km:
+          type: integer
+          example: 35000
