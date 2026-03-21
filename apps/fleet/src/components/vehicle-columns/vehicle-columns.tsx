@@ -2,7 +2,7 @@ import { Eye } from 'lucide-react';
 
 import { VehicleStatusBadge } from '../VehicleStatusBadge/VehicleStatusBadge';
 
-import type { Vehicle } from '@-label-/client-fleet';
+import type { Vehicle, VehicleStatus } from '@-label-/client-fleet';
 import type { ShellApi } from '@-label-/contracts';
 import { Button } from '@-label-/ui-internal-core';
 import type { ColumnDef } from '@-label-/ui-internal-datatable';
@@ -35,7 +35,7 @@ export const createVehicleColumns = (shellApi?: ShellApi): ColumnDef<Vehicle, un
   {
     accessorKey: 'status',
     header: 'Status',
-    cell: ({ getValue }) => <VehicleStatusBadge status={getValue()} />,
+    cell: ({ getValue }) => <VehicleStatusBadge status={getValue<VehicleStatus>()} />,
   },
   {
     accessorKey: 'km',
