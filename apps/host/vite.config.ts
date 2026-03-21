@@ -45,6 +45,6 @@ export default defineConfig({
     cors: true,
   },
   build: {
-    target: 'chrome89',
+    target: ['chrome80', 'safari14', 'edge80', 'firefox80'],
   },
 });
