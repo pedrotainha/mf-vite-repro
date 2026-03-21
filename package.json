@@ -86,7 +86,7 @@
       "simple-git-hooks"
     ],
     "patchedDependencies": {
-      "@module-federation/vite": "patches/@module-federation__vite.patch"
+      "@module-federation/vite@1.13.1": "patches/@module-federation__vite@1.13.1.patch"
     },
     "overrides": {
       "flatted": "3.4.2"

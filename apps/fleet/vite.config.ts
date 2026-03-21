@@ -9,15 +9,7 @@ import { environmentFailPlugin } from '@-label-/vite-plugin-env-fail';
 
 const __cwd = dirname(fileURLToPath(import.meta.url));
 
-const { shared, aliases } = generateShared({
-  cwd: __cwd,
-  ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
-});
-
 export default defineConfig({
-  resolve: {
-    alias: aliases,
-  },
   plugins: [
     environmentFailPlugin({ root: __cwd }),
     tailwindcss(),
@@ -32,7 +24,10 @@ export default defineConfig({
         './FleetDetail': './src/pages/FleetDetail/FleetDetail.tsx',
         './VehicleQuickView': './src/panels/VehicleQuickView/VehicleQuickView.tsx',
       },
-      shared,
+      shared: generateShared({
+        cwd: __cwd,
+        ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
+      }),
     }),
   ],
   server: {

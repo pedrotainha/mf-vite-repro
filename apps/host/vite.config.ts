@@ -10,14 +10,8 @@ import { mfeConfigApiPlugin } from '@-label-/vite-plugin-mfe-config-api';
 
 const __cwd = dirname(fileURLToPath(import.meta.url));
 
-const { shared, aliases } = generateShared({
-  cwd: __cwd,
-  ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
-});
-
 export default defineConfig({
   resolve: {
-    alias: aliases,
     conditions: ['style'],
   },
   plugins: [
@@ -30,7 +24,10 @@ export default defineConfig({
       remotes: {},
       dts: false,
       hostInitInjectLocation: 'entry',
-      shared,
+      shared: generateShared({
+        cwd: __cwd,
+        ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
+      }),
     }),
   ],
   server: {
