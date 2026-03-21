@@ -1,0 +1,133 @@
+diff --git a/lib/index.cjs b/lib/index.cjs
+index 380818c3f428c2be7fdaf8107cd567fb1fb0059d..36909bd43a59a0e979341406877165852d9aee92 100644
+--- a/lib/index.cjs
++++ b/lib/index.cjs
+@@ -719,6 +719,8 @@ function normalizeShareItem(key, shareItem) {
+ 		scope: shareItem.shareScope || "default",
+ 		shareConfig: {
+ 			import: typeof shareItem === "object" ? shareItem.import : void 0,
++			/* PATCH: propagate path property for transitive dep resolution */
++			path: typeof shareItem === "object" ? shareItem.path : void 0,
+ 			singleton: shareItem.singleton || false,
+ 			requiredVersion: shareItem.requiredVersion || (version ? `^${version}` : "*"),
+ 			strictVersion: !!shareItem.strictVersion
+@@ -1150,17 +1152,19 @@ function writeLoadShareModule(pkg, shareItem, command, isRolldown) {
+     const { initPromise } = globalThis[globalKey];` : `const {initPromise} = require("${virtualRuntimeInitStatus.getImportId()}")`;
+ 	const awaitOrPlaceholder = useESM ? "await " : "/*mf top-level-await placeholder replacement mf*/";
+ 	const useSsrProviderFallback = hasPackageDependency("vinext") && command === "build" && pkg === "react";
+-	const providerImportId = getLocalProviderImportPath(pkg) || getPreBuildLibImportId(pkg);
+-	const namedExports = getPackageNamedExports(pkg);
++	/* PATCH: new `path` property — explicit resolution path for shared deps */
++	const pathOverride = typeof shareItem?.shareConfig?.path === "string" ? shareItem.shareConfig.path : undefined;
++	const providerImportId = pathOverride || getLocalProviderImportPath(pkg) || getPreBuildLibImportId(pkg);
++	const namedExports = pathOverride ? getPackageNamedExports(pathOverride) : getPackageNamedExports(pkg);
+ 	let exportLine;
+ 	if (namedExports.length > 0) {
+ 		const destructure = `const { ${namedExports.map((name, i) => `${name}: __mf_${i}`).join(", ")} } = exportModule;`;
+ 		const namedExportLine = `export { ${namedExports.map((name, i) => `__mf_${i} as ${name}`).join(", ")} };`;
+ 		exportLine = useESM ? `export default exportModule;\n    ${destructure}\n    ${namedExportLine}` : `module.exports = exportModule;\n    ${destructure}\n    Object.assign(module.exports, { ${namedExports.map((name, i) => `"${name}": __mf_${i}`).join(", ")} });`;
+-	} else exportLine = useESM ? `export default exportModule\n    export * from ${JSON.stringify(getPreBuildLibImportId(pkg))}` : "module.exports = exportModule";
++	} else exportLine = useESM ? `export default exportModule\n    export * from ${JSON.stringify(pathOverride || getPreBuildLibImportId(pkg))}` : "module.exports = exportModule";
+ 	loadShareCacheMap[pkg].writeSync(`
+-    import ${JSON.stringify(getPreBuildLibImportId(pkg))};
+-    ${command !== "build" ? `;() => import(${JSON.stringify(pkg)}).catch(() => {});` : ""}
++    import ${JSON.stringify(pathOverride || getPreBuildLibImportId(pkg))};
++    ${command !== "build" ? `;() => import(${JSON.stringify(pathOverride || pkg)}).catch(() => {});` : ""}
+     ${importLine}
+     ${useSsrProviderFallback ? `const providerModulePromise = typeof window === "undefined"
+       ? import(${JSON.stringify(providerImportId)})
+@@ -1207,10 +1211,12 @@ function generateLocalSharedImportMap() {
+     const importMap = {
+       ${Array.from(getUsedShares()).sort().map((pkg) => {
+ 		const shareItem = getNormalizeShareItem(pkg);
++		/* PATCH: use path override in importMap */
++		const importId = typeof shareItem?.shareConfig?.path === "string" ? shareItem.shareConfig.path : getPreBuildLibImportId(pkg);
+ 		return `
+         ${JSON.stringify(pkg)}: async () => {
+           ${shareItem?.shareConfig.import === false ? `throw new Error(\`Shared module '\${${JSON.stringify(pkg)}}' must be provided by host\`);` : isVinext && pkg === "react" ? `let pkg = await import("react");
+-            return pkg;` : `let pkg = await import("${getPreBuildLibImportId(pkg)}");
++            return pkg;` : `let pkg = await import("${importId}");
+             return pkg;`}
+         }
+       `;
+@@ -1995,7 +2001,12 @@ function proxySharedModule(options) {
+ 					replacement: "$1",
+ 					async customResolver(source, importer) {
+ 						const pkgName = assertModuleFound(PREBUILD_TAG, source).name;
+-						const result = await this.resolve(pkgName, importer).then((item) => item.id);
++						/* PATCH: use path override + null check */
++						const shareItem = shared[pkgName];
++						const resolvePath = typeof shareItem?.shareConfig?.path === "string" ? shareItem.shareConfig.path : pkgName;
++						const resolved = await this.resolve(resolvePath, importer);
++						if (!resolved) return null;
++						const result = resolved.id;
+ 						if (_config && !result.includes(_config.cacheDir)) savePrebuild.set(pkgName, Promise.resolve(result));
+ 						return await this.resolve(await savePrebuild.get(pkgName), importer);
+ 					}
+diff --git a/lib/index.mjs b/lib/index.mjs
+index a7dce5bf396b7f224e214bd8117ac16fdc20301b..7295c01cae8db94f24d871c0a5ccff27ec59729a 100644
+--- a/lib/index.mjs
++++ b/lib/index.mjs
+@@ -696,6 +696,8 @@ function normalizeShareItem(key, shareItem) {
+ 		scope: shareItem.shareScope || "default",
+ 		shareConfig: {
+ 			import: typeof shareItem === "object" ? shareItem.import : void 0,
++			/* PATCH: propagate path property for transitive dep resolution */
++			path: typeof shareItem === "object" ? shareItem.path : void 0,
+ 			singleton: shareItem.singleton || false,
+ 			requiredVersion: shareItem.requiredVersion || (version ? `^${version}` : "*"),
+ 			strictVersion: !!shareItem.strictVersion
+@@ -1127,17 +1129,20 @@ function writeLoadShareModule(pkg, shareItem, command, isRolldown) {
+     const { initPromise } = globalThis[globalKey];` : `const {initPromise} = require("${virtualRuntimeInitStatus.getImportId()}")`;
+ 	const awaitOrPlaceholder = useESM ? "await " : "/*mf top-level-await placeholder replacement mf*/";
+ 	const useSsrProviderFallback = hasPackageDependency("vinext") && command === "build" && pkg === "react";
+-	const providerImportId = getLocalProviderImportPath(pkg) || getPreBuildLibImportId(pkg);
+-	const namedExports = getPackageNamedExports(pkg);
++	/* PATCH: new `path` property — explicit resolution path for shared deps
++	   that are not directly resolvable (e.g. transitive deps under pnpm strict). */
++	const pathOverride = typeof shareItem?.shareConfig?.path === "string" ? shareItem.shareConfig.path : undefined;
++	const providerImportId = pathOverride || getLocalProviderImportPath(pkg) || getPreBuildLibImportId(pkg);
++	const namedExports = pathOverride ? getPackageNamedExports(pathOverride) : getPackageNamedExports(pkg);
+ 	let exportLine;
+ 	if (namedExports.length > 0) {
+ 		const destructure = `const { ${namedExports.map((name, i) => `${name}: __mf_${i}`).join(", ")} } = exportModule;`;
+ 		const namedExportLine = `export { ${namedExports.map((name, i) => `__mf_${i} as ${name}`).join(", ")} };`;
+ 		exportLine = useESM ? `export default exportModule;\n    ${destructure}\n    ${namedExportLine}` : `module.exports = exportModule;\n    ${destructure}\n    Object.assign(module.exports, { ${namedExports.map((name, i) => `"${name}": __mf_${i}`).join(", ")} });`;
+-	} else exportLine = useESM ? `export default exportModule\n    export * from ${JSON.stringify(getPreBuildLibImportId(pkg))}` : "module.exports = exportModule";
++	} else exportLine = useESM ? `export default exportModule\n    export * from ${JSON.stringify(pathOverride || getPreBuildLibImportId(pkg))}` : "module.exports = exportModule";
+ 	loadShareCacheMap[pkg].writeSync(`
+-    import ${JSON.stringify(getPreBuildLibImportId(pkg))};
+-    ${command !== "build" ? `;() => import(${JSON.stringify(pkg)}).catch(() => {});` : ""}
++    import ${JSON.stringify(pathOverride || getPreBuildLibImportId(pkg))};
++    ${command !== "build" ? `;() => import(${JSON.stringify(pathOverride || pkg)}).catch(() => {});` : ""}
+     ${importLine}
+     ${useSsrProviderFallback ? `const providerModulePromise = typeof window === "undefined"
+       ? import(${JSON.stringify(providerImportId)})
+@@ -1184,10 +1189,12 @@ function generateLocalSharedImportMap() {
+     const importMap = {
+       ${Array.from(getUsedShares()).sort().map((pkg) => {
+ 		const shareItem = getNormalizeShareItem(pkg);
++		/* PATCH: use path override in importMap when available */
++		const importId = typeof shareItem?.shareConfig?.path === "string" ? shareItem.shareConfig.path : getPreBuildLibImportId(pkg);
+ 		return `
+         ${JSON.stringify(pkg)}: async () => {
+           ${shareItem?.shareConfig.import === false ? `throw new Error(\`Shared module '\${${JSON.stringify(pkg)}}' must be provided by host\`);` : isVinext && pkg === "react" ? `let pkg = await import("react");
+-            return pkg;` : `let pkg = await import("${getPreBuildLibImportId(pkg)}");
++            return pkg;` : `let pkg = await import("${importId}");
+             return pkg;`}
+         }
+       `;
+@@ -1972,7 +1979,12 @@ function proxySharedModule(options) {
+ 					replacement: "$1",
+ 					async customResolver(source, importer) {
+ 						const pkgName = assertModuleFound(PREBUILD_TAG, source).name;
+-						const result = await this.resolve(pkgName, importer).then((item) => item.id);
++						/* PATCH: use path override + null check for unresolvable transitive deps */
++						const shareItem = shared[pkgName];
++						const resolvePath = typeof shareItem?.shareConfig?.path === "string" ? shareItem.shareConfig.path : pkgName;
++						const resolved = await this.resolve(resolvePath, importer);
++						if (!resolved) return null;
++						const result = resolved.id;
+ 						if (_config && !result.includes(_config.cacheDir)) savePrebuild.set(pkgName, Promise.resolve(result));
+ 						return await this.resolve(await savePrebuild.get(pkgName), importer);
+ 					}

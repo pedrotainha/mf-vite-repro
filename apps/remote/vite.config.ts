@@ -1,16 +1,17 @@
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
+const __cwd = dirname(fileURLToPath(import.meta.url));
+
 /**
- * Minimal shared config that includes a transitive workspace dep.
+ * FIX: use a new `path` property in the shared config to provide the real
+ * path for @repro/pkg-b (transitive dep, not in remote/node_modules/).
  *
- * - @repro/pkg-a: direct dep of remote (in remote/node_modules/)
- * - @repro/pkg-b: transitive dep (pkg-a depends on pkg-b)
- *                  NOT in remote/node_modules/ (pnpm strict mode)
- *
- * BUG: the federation plugin generates a loadShare wrapper for @repro/pkg-b
- * but cannot resolve it because it's not in remote's node_modules.
+ * The patched plugin reads `path` as a resolution hint in writeLoadShareModule,
+ * customResolver, and localSharedImportMap.
  */
 export default defineConfig({
   plugins: [
@@ -26,10 +27,11 @@ export default defineConfig({
         react: { singleton: true, requiredVersion: '*' },
         'react-dom': { singleton: true, requiredVersion: '*' },
         '@repro/pkg-a': { requiredVersion: '^1.0.0' },
-        // This is the transitive dep that causes the build to fail.
-        // It's collected by our generateShared helper, but it's not in
-        // remote/node_modules/ because pnpm strict mode doesn't hoist it.
-        '@repro/pkg-b': { requiredVersion: '^1.0.0' },
+        '@repro/pkg-b': {
+          requiredVersion: '^1.0.0',
+          // New property: real path to the transitive dep's entry file
+          path: resolve(__cwd, '../../packages/pkg-b/dist/index.js'),
+        },
       },
     }),
   ],

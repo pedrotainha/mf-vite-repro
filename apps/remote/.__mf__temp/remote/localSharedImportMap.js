@@ -10,7 +10,7 @@
         }
       ,
         "@repro/pkg-b": async () => {
-          let pkg = await import("__mf__virtual/remote__prebuild___mf_0_repro_mf_1_pkg_mf_2_b__prebuild__.js");
+          let pkg = await import("/Users/pedrotainha/repos/mf-vite-repro/packages/pkg-b/dist/index.js");
             return pkg;
         }
       ,

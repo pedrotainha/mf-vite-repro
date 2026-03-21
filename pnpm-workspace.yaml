@@ -3,3 +3,6 @@ packages:
   - packages/*
 
 onlyBuiltDependencies: esbuild
+
+patchedDependencies:
+  '@module-federation/vite@1.13.1': patches/@module-federation__vite@1.13.1.patch
