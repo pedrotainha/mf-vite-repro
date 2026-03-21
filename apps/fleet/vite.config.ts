@@ -19,10 +19,19 @@ export default defineConfig({
       hostInitInjectLocation: 'entry',
       exposes: {
         './FleetMfe': './src/FleetMfe/FleetMfe.tsx',
+        './FleetDetail': './src/pages/FleetDetail/FleetDetail.tsx',
+        './VehicleQuickView': './src/panels/VehicleQuickView/VehicleQuickView.tsx',
       },
       shared: generateShared({
         cwd: __cwd,
-        ignore: ['@-label-/contracts', '@-label-/mfe-loader', '@module-federation/runtime', '@module-federation/vite'],
+        ignore: [
+          '@-label-/contracts',
+          '@-label-/mfe-loader',
+          '@-label-/shell-hooks',
+          '@module-federation/runtime',
+          '@module-federation/vite',
+          'msw',
+        ],
       }),
     }),
   ],
