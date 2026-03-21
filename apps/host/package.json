@@ -38,6 +38,7 @@
   "devDependencies": {
     "@-label-/federation-config": "workspace:*",
     "@-label-/lint-config": "2.3.2",
+    "@-label-/vite-plugin-env-fail": "workspace:*",
     "@-label-/vite-plugin-mfe-config-api": "workspace:*",
     "@axe-core/playwright": "4.11.1",
     "@module-federation/vite": "1.13.1",

@@ -5,15 +5,23 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { generateShared } from '@-label-/federation-config';
+import { environmentFailPlugin } from '@-label-/vite-plugin-env-fail';
 import { mfeConfigApiPlugin } from '@-label-/vite-plugin-mfe-config-api';
 
 const __cwd = dirname(fileURLToPath(import.meta.url));
 
+const { shared, aliases } = generateShared({
+  cwd: __cwd,
+  ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
+});
+
 export default defineConfig({
   resolve: {
+    alias: aliases,
     conditions: ['style'],
   },
   plugins: [
+    environmentFailPlugin({ root: __cwd }),
     tailwindcss(),
     react(),
     mfeConfigApiPlugin(),
@@ -22,10 +30,7 @@ export default defineConfig({
       remotes: {},
       dts: false,
       hostInitInjectLocation: 'entry',
-      shared: generateShared({
-        cwd: __cwd,
-        ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
-      }),
+      shared,
     }),
   ],
   server: {

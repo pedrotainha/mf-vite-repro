@@ -5,11 +5,21 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { generateShared } from '@-label-/federation-config';
+import { environmentFailPlugin } from '@-label-/vite-plugin-env-fail';
 
 const __cwd = dirname(fileURLToPath(import.meta.url));
 
+const { shared, aliases } = generateShared({
+  cwd: __cwd,
+  ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
+});
+
 export default defineConfig({
+  resolve: {
+    alias: aliases,
+  },
   plugins: [
+    environmentFailPlugin({ root: __cwd }),
     tailwindcss(),
     react(),
     federation({
@@ -22,10 +32,7 @@ export default defineConfig({
         './FleetDetail': './src/pages/FleetDetail/FleetDetail.tsx',
         './VehicleQuickView': './src/panels/VehicleQuickView/VehicleQuickView.tsx',
       },
-      shared: generateShared({
-        cwd: __cwd,
-        ignore: ['@-label-/contracts', '@module-federation/runtime', '@module-federation/vite', 'msw'],
-      }),
+      shared,
     }),
   ],
   server: {

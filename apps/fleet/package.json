@@ -39,6 +39,7 @@
   "devDependencies": {
     "@-label-/federation-config": "workspace:*",
     "@-label-/lint-config": "2.3.2",
+    "@-label-/vite-plugin-env-fail": "workspace:*",
     "@module-federation/vite": "1.13.1",
     "msw": "2.12.13",
     "@tailwindcss/vite": "4.2.2",

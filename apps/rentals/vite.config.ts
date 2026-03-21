@@ -5,11 +5,13 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { generateShared } from '@-label-/federation-config';
+import { environmentFailPlugin } from '@-label-/vite-plugin-env-fail';
 
 const __cwd = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
+    environmentFailPlugin({ root: __cwd }),
     tailwindcss(),
     react(),
     federation({
