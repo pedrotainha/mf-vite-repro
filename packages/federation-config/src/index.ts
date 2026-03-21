@@ -8,12 +8,20 @@ interface PackageJson {
   peerDependencies?: Record<string, string>;
 }
 
-export interface SharedConfigEntry {
-  requiredVersion: string;
-  singleton: boolean;
-}
+export type SharedConfig = Record<string, { requiredVersion: string; singleton: boolean }>;
 
-export type SharedConfig = Record<string, SharedConfigEntry>;
+export interface GenerateSharedResult {
+  shared: SharedConfig;
+  /**
+   * Aliases for transitive deps that are not directly resolvable from the app
+   * dir (pnpm strict mode). These must be passed to `resolve.alias` in the
+   * Vite config so that the federation plugin can locate the packages.
+   *
+   * Key: package name (e.g. `@-label-/shell-core`)
+   * Value: real directory path (e.g. `/abs/path/to/packages/shell-core`)
+   */
+  aliases: Record<string, string>;
+}
 
 export interface GenerateSharedOptions {
   cwd: string;
@@ -74,6 +82,7 @@ const collectDeps = (
   packageJsonPath: string,
   originalCwd: string,
   shared: SharedConfig,
+  aliases: Record<string, string>,
   seen: Set<string>,
   options: {
     depth: number;
@@ -128,8 +137,17 @@ const collectDeps = (
       singleton: forceSingleton,
     };
 
+    // If this dep is not directly resolvable from the app dir, register an
+    // alias so that Vite and the federation plugin can locate it. This
+    // happens for transitive workspace deps under pnpm strict mode.
+    const directlyResolvable = findInstalledPackageJson(originalCwd, depName) !== null;
+    if (!directlyResolvable) {
+      const realPackageDirectory = path.dirname(fs.realpathSync(resolvedPath));
+      aliases[depName] = realPackageDirectory;
+    }
+
     if (options.depth < options.maxDepth) {
-      collectDeps(resolvedPath, originalCwd, shared, seen, {
+      collectDeps(resolvedPath, originalCwd, shared, aliases, seen, {
         ...options,
         depth: options.depth + 1,
       });
@@ -137,15 +155,16 @@ const collectDeps = (
   }
 };
 
-export const generateShared = (options: GenerateSharedOptions): SharedConfig => {
+export const generateShared = (options: GenerateSharedOptions): GenerateSharedResult => {
   const shared: SharedConfig = {};
+  const aliases: Record<string, string> = {};
   const packageJsonPath = path.join(options.cwd, 'package.json');
 
   if (!fs.existsSync(packageJsonPath)) {
-    return shared;
+    return { shared, aliases };
   }
 
-  collectDeps(packageJsonPath, options.cwd, shared, new Set<string>(), {
+  collectDeps(packageJsonPath, options.cwd, shared, aliases, new Set<string>(), {
     depth: 0,
     maxDepth: options.maxDepth ?? DEFAULT_MAX_DEPTH,
     includePeerDependencies: options.includePeerDependencies ?? true,
@@ -154,5 +173,5 @@ export const generateShared = (options: GenerateSharedOptions): SharedConfig => 
     ignore: new Set(options.ignore),
   });
 
-  return shared;
+  return { shared, aliases };
 };

@@ -4,5 +4,5 @@ import { createShellStore, navigationSlice, rightBarSlice, selectionsSlice } fro
 
 export const shellStore = createShellStore({
   slices: { rightBar: rightBarSlice, selections: selectionsSlice, navigation: navigationSlice },
-  devtools: { enabled: config.ENABLE_STORE_DEVTOOLS === 'true', name: 'shell-store' },
+  devtools: { enabled: config.ENABLE_STORE_DEVTOOLS, name: 'shell-store' },
 });

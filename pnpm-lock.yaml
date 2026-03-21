@@ -71,11 +71,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/shell-hooks
       '@-label-/ui-internal-core':
-        specifier: 0.3.33
-        version: 0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        specifier: 0.3.34
+        version: 0.3.34(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       '@-label-/ui-internal-datatable':
-        specifier: 0.3.33
-        version: 0.3.33(@-label-/ui-internal-core@0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 0.3.34
+        version: 0.3.34(@-label-/ui-internal-core@0.3.34(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@module-federation/runtime':
         specifier: 2.2.3
         version: 2.2.3
@@ -109,7 +109,7 @@ importers:
         version: link:../../packages/federation-config
       '@-label-/lint-config':
         specifier: 2.3.2
-        version: 2.3.2(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
+        version: 2.3.2(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
       '@-label-/vite-plugin-env-fail':
         specifier: workspace:*
         version: link:../../packages/vite-plugin-env-fail
@@ -165,8 +165,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/shell-hooks
       '@-label-/ui-internal-core':
-        specifier: 0.3.33
-        version: 0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        specifier: 0.3.34
+        version: 0.3.34(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       '@module-federation/runtime':
         specifier: 2.2.3
         version: 2.2.3
@@ -197,7 +197,7 @@ importers:
         version: link:../../packages/federation-config
       '@-label-/lint-config':
         specifier: 2.3.2
-        version: 2.3.2(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
+        version: 2.3.2(@typescript-eslint/eslint-plugin@8.57.1(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(jiti@2.6.1)
       '@-label-/vite-plugin-env-fail':
         specifier: workspace:*
         version: link:../../packages/vite-plugin-env-fail
@@ -617,17 +617,17 @@ packages:
     resolution: {integrity: sha512-Cgl7kAfzuOs0rdJ/a3DPHYo4Bhe2G1BjfqL7bxcH2fRxZ9MmNLLIEVJkw/1dqOXnYCuMJxBtAAp1A+95tn9izQ==}
     engines: {node: ^24, pnpm: ^10}
 
-  '@-label-/ui-internal-core@0.3.33':
-    resolution: {integrity: sha512-ZnnblBDCcYoCezXPKfS/BsgdCtuNv4H7NPU7vfZ/q13svBOVDxaowrECX80M5KTfXg44I4SJqm6WBVliOSOuxA==}
+  '@-label-/ui-internal-core@0.3.34':
+    resolution: {integrity: sha512-FRmWTFILvv1R8bwjywBC+sbsNuptrI27/jIoIoQqFyHyGH5uyy+EvqNPDrVazMCjOiF6W9a+5ON27uPu8HdJHA==}
     peerDependencies:
       react: 19.2.4
       react-dom: 19.2.4
       recharts: 2.15.4
 
-  '@-label-/ui-internal-datatable@0.3.33':
-    resolution: {integrity: sha512-dfcgxuks4tRzAJaqU6C/vXOjCZiFaFdvou9+zY93IB4VeltbxJsnvBF6k6aVVwqqF6Q/kwuB3TFxX/ifbBcKjw==}
+  '@-label-/ui-internal-datatable@0.3.34':
+    resolution: {integrity: sha512-PoRMQ9vf6K5gdTBEnMEOlCoK4B+PEJj8lSnIhRjpHg4gkNlCHKgSbNpAqmtRE93pqvpFsaR+X7aHXXUaDt6eZA==}
     peerDependencies:
-      '@-label-/ui-internal-core': 0.3.33
+      '@-label-/ui-internal-core': 0.3.34
       react: 19.2.4
       react-dom: 19.2.4
 
@@ -5678,7 +5678,7 @@ snapshots:
       - supports-color
       - vitest
 
-  '@-label-/ui-internal-core@0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
+  '@-label-/ui-internal-core@0.3.34(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
     dependencies:
       '@base-ui/react': 1.2.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@hookform/resolvers': 5.2.2(react-hook-form@7.71.2(react@19.2.4))
@@ -5731,9 +5731,9 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
 
-  '@-label-/ui-internal-datatable@0.3.33(@-label-/ui-internal-core@0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@-label-/ui-internal-datatable@0.3.34(@-label-/ui-internal-core@0.3.34(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@-label-/ui-internal-core': 0.3.33(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+      '@-label-/ui-internal-core': 0.3.34(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(recharts@2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       '@tanstack/react-table': 8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       lucide-react: 0.577.0(react@19.2.4)
       react: 19.2.4
