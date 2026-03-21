@@ -6,8 +6,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "dependencies": {
@@ -21,7 +22,7 @@
     "typescript": "5.9.3"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "echo \"test — n/a\"",
     "test:ci": "echo \"test:ci — n/a\"",
     "typecheck": "tsc --noEmit",

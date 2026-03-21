@@ -8,11 +8,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./mocks": {
       "types": "./dist/mocks/index.d.ts",
-      "default": "./dist/mocks/index.js"
+      "import": "./dist/mocks/index.js",
+      "require": "./dist/mocks/index.cjs"
     }
   },
   "peerDependencies": {
@@ -25,6 +27,6 @@
     "axios": "1.13.6"
   },
   "scripts": {
-    "build": "tsup src/index.ts src/mocks/index.ts --format esm --dts"
+    "build": "tsup src/index.ts src/mocks/index.ts --format esm,cjs --dts"
   }
 }
