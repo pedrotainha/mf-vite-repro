@@ -2,16 +2,21 @@
   "name": "mf-vite-repro",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=24", "pnpm": ">=10" },
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10"
+  },
   "packageManager": "pnpm@10.12.1",
   "scripts": {
     "build:packages": "pnpm --filter './packages/*' run build",
     "build:host": "pnpm --filter host build",
     "build:remote": "pnpm --filter remote build",
     "build:all": "pnpm run build:packages && pnpm run build:remote && pnpm run build:host",
-    "dev": "pnpm -r --parallel run dev"
+    "dev": "pnpm -r --parallel run dev",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "1.58.2",
     "tsup": "8.5.1",
     "typescript": "5.9.3"
   }
