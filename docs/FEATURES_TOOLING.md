@@ -63,7 +63,7 @@ Usar empty changeset quando há alterações no repo que **não afectam packages
 
 Ao correr `pnpm outdated`, ignorar sugestões para a próxima major destes packages.
 
-## Vite Plugins Internos (TODO-10 — paralelo)
+## Vite Plugins Internos
 
 ### vite-plugin-config-chunk
 

@@ -213,18 +213,18 @@ O primeiro dígito distingue o ambiente. O offset identifica a app (173 = host, 
 
 ## Internal Packages
 
-| Package | Purpose | Status |
-|---------|---------|--------|
-| @-label-/contracts | Tipos partilhados (ShellApi, SliceDescriptor, domain contracts) | TODO-02 + ADR-010 |
-| @-label-/federation-config | generateShared helper | TODO-02 |
-| @-label-/mfe-loader | initFederation, registerMfeRemotes, lazyRemoteComponent | TODO-02 |
-| @-label-/shell-core | Shell store factory (zustand/vanilla), dynamic slice registry, slice factories | ADR-010 |
-| @-label-/shell-hooks | React bindings — useShellStore, ShellApiProvider, useShellApi, useSlice | ADR-010 |
-| @-label-/vite-plugin-mfe-config-api | Serve mfe.config.json como /api/mfes | TODO-02 |
-| @-label-/vite-plugin-config-chunk | Isola config.ts num chunk separado para CI/CD replacement | TODO-10 (paralelo) |
-| @-label-/vite-plugin-env-fail | Fail-fast se .env não existe ao arrancar Vite | TODO-10 (paralelo) |
-| @-label-/runtime-scripts | loadScript utility + React Scan IIFE build | TODO-10 (paralelo) |
-| @-label-/utils | Utilitários partilhados | TODO-01 |
+| Package | Purpose |
+|---------|---------|
+| @-label-/contracts | Tipos partilhados (ShellApi, SliceDescriptor, domain contracts) |
+| @-label-/federation-config | generateShared helper |
+| @-label-/mfe-loader | initFederation, registerMfeRemotes, lazyRemoteComponent |
+| @-label-/runtime-scripts | loadScript utility + React Scan IIFE build |
+| @-label-/shell-core | Shell store factory (zustand/vanilla), dynamic slice registry, slice factories |
+| @-label-/shell-hooks | React bindings — useShellStore, ShellApiProvider, useShellApi, useSlice |
+| @-label-/utils | Utilitários partilhados |
+| @-label-/vite-plugin-config-chunk | Isola config.ts num chunk separado para CI/CD replacement |
+| @-label-/vite-plugin-env-fail | Fail-fast se .env não existe ao arrancar Vite |
+| @-label-/vite-plugin-mfe-config-api | Serve mfe.config.json como /api/mfes |
 
 ## Testing
 
