@@ -62,3 +62,32 @@ Usar empty changeset quando há alterações no repo que **não afectam packages
 | `eslint` | 9 | Flat config estável; v10 é breaking |
 
 Ao correr `pnpm outdated`, ignorar sugestões para a próxima major destes packages.
+
+## Vite Plugins Internos (TODO-10 — paralelo)
+
+### vite-plugin-config-chunk
+
+Isola `import { config } from "./config"` num chunk separado durante o build. O Vite inline as `VITE_*` vars em múltiplos chunks — este plugin converte o import estático em dynamic import para que o Rollup gere um `config-XXXX.js` isolado. Em CI/CD, basta fazer find-and-replace nesse chunk por ambiente (staging, prod) sem rebuildar. Inactivo em dev mode (`apply: 'build'`).
+
+### vite-plugin-env-fail
+
+Fail-fast se `.env` não existe ao arrancar o Vite. Corre no hook `configResolved` (antes do server start) e mostra uma mensagem clara com o comando `cp .env.example .env`. Evita que um dev perca tempo a debugar `VITE_*` vars `undefined` em runtime.
+
+Integrado em todas as apps (host, fleet, rentals, maintenance) como primeiro plugin no array.
+
+### runtime-scripts + React Scan
+
+Package `@-label-/runtime-scripts` com duas funções:
+
+1. **`loadScript(source)`** — utility genérica que injecta um `<script>` no `<head>` e retorna uma Promise
+2. **React Scan IIFE** — entry point que bundla `react-scan/dist/auto.global.js` via Vite lib mode (IIFE, 330KB). Servido em `localhost:5179` via `vite preview`
+
+Integrado no host bootstrap (`main.tsx`): se `VITE_REACT_SCAN=true`, carrega o script via `loadScript(VITE_REACT_SCAN_URL)` **antes** do React mount — necessário porque o React Scan faz monkey-patch ao React internals.
+
+## PR Guardian
+
+Configuração em `.pr-guardian.config.mjs` com custom rules:
+
+- **`css-source-directive-for-ui-packages`** — valida que apps com deps `@-label-/ui-internal-*` têm os `@source` correspondentes no CSS
+- **`federation-singleton-prefixes`** — detecta remoção de `@-label-/ui-` dos singletonPrefixes (previne duplicação de UI packages em federation)
+- **`browserslistrc-required-for-apps`** — valida que apps têm `.browserslistrc` para browser targets do CSS

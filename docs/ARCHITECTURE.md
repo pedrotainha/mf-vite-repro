@@ -221,6 +221,9 @@ O primeiro dígito distingue o ambiente. O offset identifica a app (173 = host, 
 | @-label-/shell-core | Shell store factory (zustand/vanilla), dynamic slice registry, slice factories | ADR-010 |
 | @-label-/shell-hooks | React bindings — useShellStore, ShellApiProvider, useShellApi, useSlice | ADR-010 |
 | @-label-/vite-plugin-mfe-config-api | Serve mfe.config.json como /api/mfes | TODO-02 |
+| @-label-/vite-plugin-config-chunk | Isola config.ts num chunk separado para CI/CD replacement | TODO-10 (paralelo) |
+| @-label-/vite-plugin-env-fail | Fail-fast se .env não existe ao arrancar Vite | TODO-10 (paralelo) |
+| @-label-/runtime-scripts | loadScript utility + React Scan IIFE build | TODO-10 (paralelo) |
 | @-label-/utils | Utilitários partilhados | TODO-01 |
 
 ## Testing
